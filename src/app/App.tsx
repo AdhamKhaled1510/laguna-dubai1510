@@ -125,11 +125,11 @@ const menuData: MenuItemType[] = [
   // ════════════════════════════════════════
   //  ماتشا
   // ════════════════════════════════════════
-  { id: 36, name: 'Matcha',              nameAr: 'ماتشا',             descriptionAr: 'ماتشا ساخنة',          price: 60,  image: IMG_MATCHA,   category: 'iced', popular: false },
-  { id: 37, name: 'Iced Matcha',         nameAr: 'آيس ماتشا',        descriptionAr: 'ماتشا على الثلج',      price: 75,  image: IMG_MATCHA2,  category: 'iced', popular: true  },
-  { id: 38, name: 'Matcha Frappe',       nameAr: 'ماتشا فرابيه',     descriptionAr: 'فرابيه ماتشا أخضر',   price: 70,  image: IMG_MATCHA2,  category: 'iced', popular: false },
-  { id: 39, name: 'Iced Matcha Latte',   nameAr: 'آيس ماتشا لاتيه',  descriptionAr: 'لاتيه ماتشا بارد',    price: 90,  image: IMG_MATCHA,   category: 'iced', popular: false },
-  { id: 40, name: 'Matcha Milk Shake',   nameAr: 'ماتشا ميلك شيك',   descriptionAr: 'ميلك شيك ماتشا',      price: 75,  image: IMG_MATCHA,   category: 'iced', popular: false },
+  { id: 36, name: 'Matcha',              nameAr: 'ماتشا',             descriptionAr: 'ماتشا ساخنة',          price: 60,  image: IMG_MATCHA,   category: 'matcha', popular: false },
+  { id: 37, name: 'Iced Matcha',         nameAr: 'آيس ماتشا',        descriptionAr: 'ماتشا على الثلج',      price: 75,  image: IMG_MATCHA2,  category: 'matcha', popular: true  },
+  { id: 38, name: 'Matcha Frappe',       nameAr: 'ماتشا فرابيه',     descriptionAr: 'فرابيه ماتشا أخضر',   price: 70,  image: IMG_MATCHA2,  category: 'matcha', popular: false },
+  { id: 39, name: 'Iced Matcha Latte',   nameAr: 'آيس ماتشا لاتيه',  descriptionAr: 'لاتيه ماتشا بارد',    price: 90,  image: IMG_MATCHA,   category: 'matcha', popular: false },
+  { id: 40, name: 'Matcha Milk Shake',   nameAr: 'ماتشا ميلك شيك',   descriptionAr: 'ميلك شيك ماتشا',      price: 75,  image: IMG_MATCHA,   category: 'matcha', popular: false },
 
   // ════════════════════════════════════════
   //  فرابيه
