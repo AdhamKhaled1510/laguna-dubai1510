@@ -76,7 +76,6 @@ const menuData: MenuItemType[] = [
   // ════════════════════════════════════════
   { id: 1, name: 'Single Turkish',    nameAr: 'سنجل تركي',     descriptionAr: 'قهوة تركية سنجل',      price: 30,  image: IMG_TURKISH,  category: 'hot', popular: false },
   { id: 2, name: 'Double Turkish',    nameAr: 'دبل تركي',      descriptionAr: 'قهوة تركية دبل',        price: 35,  image: IMG_TURKISH,  category: 'hot', popular: false },
-  { id: 3, name: 'Double Turkish L',  nameAr: 'دبل تركي كبير', descriptionAr: 'قهوة تركية دبل كبير',   price: 40,  image: IMG_TURKISH,  category: 'hot', popular: false },
   { id: 4, name: 'French Coffee',     nameAr: 'فرنساوي',       descriptionAr: 'قهوة فرنساوي',          price: 40,  image: IMG_TURKISH,  category: 'hot', popular: false },
   { id: 5, name: 'Flavored Coffee',   nameAr: 'قهوة نكهات',    descriptionAr: 'قهوة بنكهات مميزة',     price: 60,  image: IMG_TURKISH,  category: 'hot', popular: true  },
   // ════════════════════════════════════════
