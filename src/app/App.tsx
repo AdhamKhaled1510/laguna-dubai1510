@@ -1,11 +1,12 @@
 import { useState, useRef, useEffect } from 'react';
-import { Search, Phone, MessageCircle, MapPin } from 'lucide-react';
+import { Search, Phone, MessageCircle, MapPin, ChevronDown } from 'lucide-react';
 import { MenuItem, MenuItemType } from './components/MenuItem';
 import { CartSheet } from './components/CartSheet';
 import { Input } from './components/ui/input';
 import { toast } from 'sonner';
 import { Toaster } from './components/ui/sonner';
 import logoUrl from '@/assets/logo.png';
+import { saveOrder } from './lib/orders';
 
 // ── Local menu images (from src/assets/menu/) ─────────────
 const _menuFiles = import.meta.glob('@/assets/menu/*.{jpg,png,webp}', {
@@ -286,6 +287,7 @@ function loadCart(): CartItem[] {
 
 export default function App() {
   const [cart, setCart] = useState<CartItem[]>(loadCart);
+  const [tableNumber, setTableNumber] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('hot');
   const [headerVisible, setHeaderVisible] = useState(true);
@@ -364,11 +366,21 @@ export default function App() {
 
   const handleCheckout = () => {
     const totalPrice = cart.reduce((sum, item) => sum + item.item.price * item.quantity, 0);
-    const orderItems = cart.map(c => `• ${c.item.nameAr} (${c.quantity}x)`).join('\n');
-    const msg = `مرحباً لاجونا دبي 🌊\nأود تقديم طلب:\n\n${orderItems}\n\nإجمالي الحساب: ${totalPrice} ج.م`;
+    const orderItems = cart.map(c => ({ nameAr: c.item.nameAr, quantity: c.quantity, price: c.item.price }));
+    saveOrder({
+      id: Date.now().toString(),
+      tableNumber,
+      items: orderItems,
+      totalPrice,
+      timestamp: Date.now(),
+      status: 'pending',
+    });
+    const orderSummary = orderItems.map(i => `• ${i.nameAr} (${i.quantity}x)`).join('\n');
+    const msg = `ترابيزة ${tableNumber}\n\n${orderSummary}\n\nالإجمالي: ${totalPrice} ج.م`;
     window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
     setCart([]);
     saveCart([]);
+    toast.success('تم إرسال الطلب إلى الباريستا');
   };
 
   const getItemQuantity = (itemId: number) => {
@@ -421,6 +433,22 @@ export default function App() {
           <img src={logoUrl} alt="Laguna Dubai" className="h-16 md:h-20 w-auto mb-1 md:mb-2 brightness-0 invert" />
           <h1 className="text-xl md:text-2xl font-bold tracking-[0.15em] text-white" style={{ fontFamily: "'Playfair Display', serif" }}>LAGUNA DUBAI</h1>
           <p className="text-[10px] md:text-xs text-white/50 tracking-[0.3em] mt-1">CAFÉ &bull; RESTAURANT</p>
+
+          {/* Table Number */}
+          <div className="flex items-center gap-2 mt-2">
+            <label className="text-xs text-white/60">ترابيزة</label>
+            <select
+              value={tableNumber}
+              onChange={(e) => setTableNumber(Number(e.target.value))}
+              className="appearance-none bg-white/10 border border-white/20 text-white text-sm rounded-lg px-3 py-1.5 pr-8 focus:outline-none focus:border-amber-400/40 cursor-pointer"
+              style={{ backgroundImage: "url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23ffffff80' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e\")", backgroundPosition: 'left 8px center', backgroundRepeat: 'no-repeat', backgroundSize: '16px', paddingRight: '12px', paddingLeft: '28px' }}
+            >
+              {Array.from({ length: 20 }, (_, i) => i + 1).map(n => (
+                <option key={n} value={n} className="text-stone-900">{n}</option>
+              ))}
+            </select>
+          </div>
+
           <div className="w-full max-w-md mx-auto mt-3 md:mt-4 relative">
             <Search className="absolute right-4 top-1/2 -translate-y-1/2 h-4 w-4 text-white/40" />
             <Input
