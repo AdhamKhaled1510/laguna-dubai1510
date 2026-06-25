@@ -2,7 +2,6 @@ import { Plus, Minus } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card, CardContent } from './ui/card';
 import { Badge } from './ui/badge';
-import { ImageWithFallback } from './figma/ImageWithFallback';
 
 export interface MenuItemType {
   id: number;
@@ -27,7 +26,7 @@ export function MenuItem({ item, quantity, onAdd, onRemove }: MenuItemProps) {
   return (
     <Card className="overflow-hidden bg-white border-stone-100 hover:border-stone-200 hover:shadow-xl hover:shadow-stone-900/5 transition-all duration-300 text-stone-800 rounded-xl">
       <div className="relative aspect-square overflow-hidden bg-stone-100">
-        <ImageWithFallback
+        <img
           src={item.image}
           alt={item.nameAr}
           className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
