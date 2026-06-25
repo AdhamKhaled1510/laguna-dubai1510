@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Search } from 'lucide-react';
+import { Search, Phone, MessageCircle, MapPin } from 'lucide-react';
 import { MenuItem, MenuItemType } from './components/MenuItem';
 import { CartSheet } from './components/CartSheet';
 import { Input } from './components/ui/input';
@@ -413,11 +413,11 @@ export default function App() {
 
       {/* Header */}
       <header
-        className={`bg-[#0A2242] sticky top-0 z-40 border-b border-white/10 shadow-lg transition-transform duration-300 ${
+        className={`bg-gradient-to-b from-[#0A2242] to-[#0d2d52] sticky top-0 z-40 border-b border-white/10 shadow-lg transition-transform duration-300 ${
           headerVisible ? 'translate-y-0' : '-translate-y-full'
         }`}
       >
-        <div className="container mx-auto px-4 py-4 flex flex-col items-center">
+        <div className="container mx-auto px-4 py-4 flex flex-col items-center relative">
           <img src={logoUrl} alt="Laguna Dubai" className="h-20 w-auto mb-2 brightness-0 invert" />
           <h1 className="text-2xl font-bold tracking-[0.15em] text-white" style={{ fontFamily: "'Playfair Display', serif" }}>LAGUNA DUBAI</h1>
           <p className="text-xs text-white/50 tracking-[0.3em] mt-1">CAFÉ &bull; RESTAURANT</p>
@@ -428,14 +428,17 @@ export default function App() {
               placeholder="ابحث في المنيو..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pr-10 text-right h-10 text-sm bg-white/10 border-white/20 text-white placeholder:text-white/40 focus:border-white/30 focus:ring-white/20 rounded-full shadow-sm"
+              className="pr-10 text-right h-10 text-sm bg-white/10 border-white/20 text-white placeholder:text-white/40 focus:border-amber-400/40 focus:ring-amber-400/20 rounded-full shadow-sm"
             />
           </div>
         </div>
+        <svg className="absolute bottom-0 left-0 w-full h-6 -mb-[1px] text-[#f5f0eb]" viewBox="0 0 1440 48" preserveAspectRatio="none" fill="currentColor">
+          <path d="M0 48h1440V24c-120-24-360-40-720-24S120 48 0 24v24z"/>
+        </svg>
       </header>
 
       {/* Category Navigation */}
-      <div className="sticky z-30 bg-[#f5f0eb]/90 backdrop-blur-md border-b border-stone-200/40"
+      <div className="sticky z-30 bg-[#f5f0eb]/95 backdrop-blur-md border-b border-stone-200/40 shadow-sm"
         style={{ top: headerVisible ? '132px' : '0' }}
       >
         <div className="container mx-auto px-4 py-3 overflow-x-auto scrollbar-hide">
@@ -460,13 +463,14 @@ export default function App() {
       {/* Items Grid */}
       <main className="container mx-auto px-4 py-8 pb-32">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {filteredItems(activeCategory).map((item) => (
+          {filteredItems(activeCategory).map((item, idx) => (
             <MenuItem
               key={item.id}
               item={item}
               quantity={getItemQuantity(item.id)}
               onAdd={() => addToCart(item)}
               onRemove={() => removeFromCart(item)}
+              style={{ animation: `fadeInUp 0.5s ease-out ${idx * 0.05}s both` }}
             />
           ))}
         </div>
@@ -479,22 +483,28 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-stone-900 text-stone-400 py-10 px-4">
+      <footer className="bg-gradient-to-t from-stone-900 to-stone-800 text-stone-400 py-12 px-4">
         <div className="container mx-auto max-w-4xl text-center">
-          <img src={logoUrl} alt="Laguna Dubai" className="h-14 w-auto mx-auto mb-4 opacity-60" />
-          <p className="text-lg font-semibold text-stone-300 mb-1">LAGUNA DUBAI</p>
-          <p className="text-sm text-stone-500 mb-4">CAFÉ &bull; RESTAURANT</p>
-          <p className="text-sm text-stone-500 max-w-md mx-auto leading-relaxed mb-6">
-            دبي &bull; الإمارات العربية المتحدة
-          </p>
-          <div className="flex justify-center gap-4 text-sm text-stone-500">
-            <a href={`https://wa.me/${WA_NUMBER}`} className="hover:text-amber-400 transition-colors">واتساب</a>
-            <span>&bull;</span>
-            <span>+20 123 456 7890</span>
-            <span>&bull;</span>
-            <span> laguna.dubai@email.com</span>
+          <img src={logoUrl} alt="Laguna Dubai" className="h-14 w-auto mx-auto mb-4 opacity-50 brightness-0 invert" />
+          <p className="text-lg font-semibold text-stone-200 mb-1 tracking-[0.1em]">LAGUNA DUBAI</p>
+          <p className="text-xs text-stone-500 mb-6 tracking-[0.2em]">CAFÉ &bull; RESTAURANT</p>
+          <div className="flex justify-center items-center gap-6 text-sm text-stone-400 mb-6">
+            <div className="flex flex-col items-center gap-1">
+              <Phone className="h-4 w-4 text-amber-400/60" />
+              <span>+20 123 456 7890</span>
+            </div>
+            <div className="w-px h-8 bg-stone-700" />
+            <a href={`https://wa.me/${WA_NUMBER}`} className="flex flex-col items-center gap-1 hover:text-amber-400 transition-colors">
+              <MessageCircle className="h-4 w-4 text-amber-400/60" />
+              <span>واتساب</span>
+            </a>
+            <div className="w-px h-8 bg-stone-700" />
+            <div className="flex flex-col items-center gap-1">
+              <MapPin className="h-4 w-4 text-amber-400/60" />
+              <span>دبي، الإمارات</span>
+            </div>
           </div>
-          <div className="mt-8 pt-6 border-t border-stone-800 text-xs text-stone-600">
+          <div className="mt-8 pt-6 border-t border-stone-700/50 text-xs text-stone-600">
             &copy; 2026 Laguna Dubai. جميع الحقوق محفوظة.
           </div>
         </div>

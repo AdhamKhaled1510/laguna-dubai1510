@@ -26,26 +26,28 @@ export function CartSheet({ cartItems, onRemoveItem, onClearCart, onCheckout }: 
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button size="lg" className="fixed bottom-6 left-6 h-14 px-6 text-base bg-stone-800 hover:bg-stone-700 text-white font-bold shadow-xl rounded-xl z-50 transition-all duration-300 active:scale-95">
+        <Button size="lg" className={`fixed bottom-6 left-6 h-14 px-6 text-base bg-gradient-to-r from-stone-800 to-stone-700 hover:from-stone-700 hover:to-stone-600 text-white font-bold shadow-2xl rounded-xl z-50 transition-all duration-300 active:scale-95 ${totalItems > 0 ? 'animate-pulse-cart' : ''}`}>
           <ShoppingCart className="ml-2 h-5 w-5" />
           السلة ({totalItems})
           {totalPrice > 0 && (
-            <Badge variant="secondary" className="mr-2 text-sm px-2.5 py-0.5 bg-stone-700 text-stone-200 border border-stone-600">
+            <Badge variant="secondary" className="mr-2 text-sm px-2.5 py-0.5 bg-amber-500 text-white font-bold border border-amber-400">
               {totalPrice} ج.م
             </Badge>
           )}
         </Button>
       </SheetTrigger>
       <SheetContent side="left" className="w-full sm:max-w-lg flex flex-col bg-white border-l border-stone-100 text-stone-800">
-        <SheetHeader className="text-right flex flex-col items-center pt-6">
-          <img src={logoUrl} alt="Laguna Dubai" className="h-14 w-auto mb-2" />
+        <SheetHeader className="text-right flex flex-col items-center pt-6 pb-2 border-b border-stone-100">
+          <img src={logoUrl} alt="Laguna Dubai" className="h-10 w-auto mb-2 brightness-0" />
           <SheetTitle className="text-lg font-bold text-stone-800">سلة الطلبات</SheetTitle>
         </SheetHeader>
 
         {cartItems.length === 0 ? (
           <div className="flex-1 flex items-center justify-center">
             <div className="text-center">
-              <img src={logoUrl} alt="Laguna Dubai" className="h-20 w-auto mx-auto mb-4 opacity-10" />
+              <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-stone-50 flex items-center justify-center">
+                <ShoppingCart className="h-8 w-8 text-stone-300" />
+              </div>
               <p className="text-lg font-semibold text-stone-400">السلة فارغة</p>
               <p className="text-sm mt-1 text-stone-300">ابدأ بإضافة مشروبات لذيذة من المنيو</p>
             </div>
@@ -55,7 +57,7 @@ export function CartSheet({ cartItems, onRemoveItem, onClearCart, onCheckout }: 
             <ScrollArea className="flex-1 -mx-6 px-6 my-4">
               <div className="space-y-3">
                 {cartItems.map(({ item, quantity }) => (
-                  <div key={item.id} className="flex gap-3 p-3 bg-stone-50 border border-stone-100 rounded-lg">
+                  <div key={item.id} className="flex gap-3 p-3 bg-stone-50 border border-stone-100 rounded-lg hover:border-stone-200 transition-colors">
                     <img
                       src={item.image}
                       alt={item.nameAr}
@@ -100,7 +102,7 @@ export function CartSheet({ cartItems, onRemoveItem, onClearCart, onCheckout }: 
               <Button
                 onClick={onCheckout}
                 size="lg"
-                className="w-full bg-stone-800 hover:bg-stone-700 text-white font-bold text-sm h-12 rounded-lg"
+                className="w-full bg-gradient-to-r from-stone-800 to-stone-700 hover:from-stone-700 hover:to-stone-600 text-white font-bold text-sm h-12 rounded-lg transition-all active:scale-[0.98]"
               >
                 تأكيد الطلب
               </Button>
