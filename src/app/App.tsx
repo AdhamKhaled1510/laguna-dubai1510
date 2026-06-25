@@ -73,7 +73,7 @@ const menuData: MenuItemType[] = [
   // ════════════════════════════════════════
   //  القهوة التركي والنكهات
   // ════════════════════════════════════════
-  { id: 1, name: 'Single Turkish',    nameAr: 'سنجل تركي',     descriptionAr: 'قهوة تركية سنجل',      price: 30,  image: IMG_TURKISH,  category: 'hot', popular: false },
+  { id: 1, name: 'Single Turkish',    nameAr: 'سنجل تركي',     descriptionAr: 'قهوة تركية سنجل',      price: 25,  image: IMG_TURKISH,  category: 'hot', popular: false },
   { id: 2, name: 'Double Turkish',    nameAr: 'دبل تركي',      descriptionAr: 'قهوة تركية دبل',        price: 35,  image: IMG_TURKISH,  category: 'hot', popular: false },
   { id: 4, name: 'French Coffee',     nameAr: 'فرنساوي',       descriptionAr: 'قهوة فرنساوي',          price: 40,  image: IMG_TURKISH,  category: 'hot', popular: false },
   { id: 5, name: 'Flavored Coffee',   nameAr: 'قهوة نكهات',    descriptionAr: 'قهوة بنكهات مميزة',     price: 60,  image: IMG_TURKISH,  category: 'hot', popular: true  },
@@ -82,7 +82,7 @@ const menuData: MenuItemType[] = [
   // ════════════════════════════════════════
   { id: 6,  name: 'Red Tea',          nameAr: 'شاي أحمر',      descriptionAr: 'شاي أحمر',              price: 20,  image: IMG_TEA,      category: 'hot', popular: false },
   { id: 7,  name: 'Green Tea',        nameAr: 'شاي أخضر',      descriptionAr: 'شاي أخضر',              price: 20,  image: IMG_TEA,      category: 'hot', popular: false },
-  { id: 8,  name: 'Flavored Tea',     nameAr: 'شاي نكهات',     descriptionAr: 'شاي بنكهات متنوعة',     price: 35,  image: IMG_TEA,      category: 'hot', popular: false },
+  { id: 8,  name: 'Flavored Tea',     nameAr: 'شاي نكهات',     descriptionAr: 'شاي بنكهات متنوعة',     price: 25,  image: IMG_TEA,      category: 'hot', popular: false },
   { id: 9,  name: 'Milk Tea',         nameAr: 'شاي بلبن',      descriptionAr: 'شاي بالحليب الطازج',    price: 50,  image: IMG_TEA,      category: 'hot', popular: false },
   { id: 10, name: 'Karak Tea',        nameAr: 'شاي كرك',       descriptionAr: 'شاي كرك بالحليب',       price: 50,  image: IMG_TEA,      category: 'hot', popular: true  },
   { id: 11, name: 'Tea Pot',          nameAr: 'براد شاي',      descriptionAr: 'برّاد شاي للمجموعة',    price: 60,  image: IMG_TEA,      category: 'hot', popular: false },
@@ -95,7 +95,7 @@ const menuData: MenuItemType[] = [
   { id: 15, name: 'Cappuccino',       nameAr: 'كابتشينو',     descriptionAr: 'كابتشينو كريمي',        price: 60,  image: IMG_CAPPUCCINO,category: 'hot', popular: true  },
   { id: 16, name: 'Dark Mocha',       nameAr: 'دارك موكا',     descriptionAr: 'موكا داكن غني',          price: 60,  image: IMG_MOCHA,     category: 'hot', popular: false },
   { id: 17, name: 'White Mocha',      nameAr: 'وايت موكا',     descriptionAr: 'موكا أبيض لذيذ',        price: 65,  image: IMG_MOCHA,     category: 'hot', popular: true  },
-  { id: 18, name: 'Cortado',          nameAr: 'كورتادو',       descriptionAr: 'كورتادو مكثف',           price: 70,  image: IMG_ESPRESSO,  category: 'hot', popular: false },
+  { id: 18, name: 'Cortado',          nameAr: 'كورتادو',       descriptionAr: 'كورتادو مكثف',           price: 65,  image: IMG_ESPRESSO,  category: 'hot', popular: false },
   { id: 19, name: 'Latte',            nameAr: 'لاتيه',         descriptionAr: 'لاتيه بالحليب',          price: 60,  image: IMG_LATTE,     category: 'hot', popular: true  },
   // ════════════════════════════════════════
   //  مشروبات ساخنة أخرى
@@ -124,10 +124,10 @@ const menuData: MenuItemType[] = [
   //  ماتشا
   // ════════════════════════════════════════
   { id: 36, name: 'Matcha',              nameAr: 'ماتشا',             descriptionAr: 'ماتشا ساخنة',          price: 60,  image: IMG_MATCHA,   category: 'matcha', popular: false },
-  { id: 37, name: 'Iced Matcha',         nameAr: 'آيس ماتشا',        descriptionAr: 'ماتشا على الثلج',      price: 75,  image: IMG_MATCHA2,  category: 'matcha', popular: true  },
-  { id: 38, name: 'Matcha Frappe',       nameAr: 'ماتشا فرابيه',     descriptionAr: 'فرابيه ماتشا أخضر',   price: 70,  image: IMG_MATCHA2,  category: 'matcha', popular: false },
-  { id: 39, name: 'Iced Matcha Latte',   nameAr: 'آيس ماتشا لاتيه',  descriptionAr: 'لاتيه ماتشا بارد',    price: 90,  image: IMG_MATCHA,   category: 'matcha', popular: false },
-  { id: 40, name: 'Matcha Milk Shake',   nameAr: 'ماتشا ميلك شيك',   descriptionAr: 'ميلك شيك ماتشا',      price: 75,  image: IMG_MATCHA,   category: 'matcha', popular: false },
+  { id: 37, name: 'Iced Matcha',         nameAr: 'آيس ماتشا',        descriptionAr: 'ماتشا على الثلج',      price: 90,  image: IMG_MATCHA2,  category: 'matcha', popular: true  },
+  { id: 38, name: 'Matcha Frappe',       nameAr: 'ماتشا فرابيه',     descriptionAr: 'فرابيه ماتشا أخضر',   price: 75,  image: IMG_MATCHA2,  category: 'matcha', popular: false },
+  { id: 39, name: 'Iced Matcha Latte',   nameAr: 'آيس ماتشا لاتيه',  descriptionAr: 'لاتيه ماتشا بارد',    price: 70,  image: IMG_MATCHA,   category: 'matcha', popular: false },
+  { id: 40, name: 'Matcha Milk Shake',   nameAr: 'ماتشا ميلك شيك',   descriptionAr: 'ميلك شيك ماتشا',      price: 90,  image: IMG_MATCHA,   category: 'matcha', popular: false },
 
   // ════════════════════════════════════════
   //  فرابيه
@@ -168,7 +168,7 @@ const menuData: MenuItemType[] = [
   { id: 78, name: 'Orange Carrot',      nameAr: 'برتقال جزر',        descriptionAr: 'برتقال وجزر طازج',     price: 65,  image: IMG_JUICE,    category: 'juices', popular: false },
   { id: 79, name: 'Strawberry Milk',    nameAr: 'فراولة لبن',        descriptionAr: 'عصير فراولة بالحليب',  price: 65,  image: IMG_JUICE2,   category: 'juices', popular: true  },
   { id: 80, name: 'Guava Milk',         nameAr: 'جوافة لبن',         descriptionAr: 'عصير جوافة بالحليب',   price: 65,  image: IMG_JUICE2,   category: 'juices', popular: false },
-  { id: 81, name: 'Guava Mint',         nameAr: 'جوافة نعناع',       descriptionAr: 'جوافة ونعناع طازج',    price: 70,  image: IMG_JUICE2,   category: 'juices', popular: false },
+  { id: 81, name: 'Guava Mint',         nameAr: 'جوافة نعناع',       descriptionAr: 'جوافة ونعناع طازج',    price: 65,  image: IMG_JUICE2,   category: 'juices', popular: false },
   { id: 82, name: 'Lemon Mint',         nameAr: 'ليمون نعناع',       descriptionAr: 'ليمون بالنعناع طازج',  price: 55,  image: IMG_LEMON,    category: 'juices', popular: true  },
   { id: 83, name: 'Date Milk',          nameAr: 'بلح بلبن',          descriptionAr: 'بلح بالحليب',           price: 65,  image: IMG_JUICE,    category: 'juices', popular: false },
   { id: 84, name: 'Pomegranate',        nameAr: 'رمان',              descriptionAr: 'عصير رمان طازج',        price: 75,  image: IMG_JUICE,    category: 'juices', popular: false },
@@ -181,7 +181,7 @@ const menuData: MenuItemType[] = [
   //  الكوكتيلات
   // ════════════════════════════════════════
   { id: 100, name: 'Hawaii',            nameAr: 'هاواي',             descriptionAr: 'كوكتيل هاواي',           price: 70,  image: IMG_COCKTAIL, category: 'cocktails', popular: false },
-  { id: 101, name: 'Larouz',            nameAr: 'الروز',             descriptionAr: 'كوكتيل الروز',           price: 75,  image: IMG_COCKTAIL, category: 'cocktails', popular: false },
+  { id: 101, name: 'Larouz',            nameAr: 'لاروز',             descriptionAr: 'كوكتيل لاروز',           price: 75,  image: IMG_COCKTAIL, category: 'cocktails', popular: false },
   { id: 102, name: 'Green Red',         nameAr: 'جرين ريد',          descriptionAr: 'كوكتيل روز',            price: 85,  image: IMG_COCKTAIL, category: 'cocktails', popular: false },
   { id: 103, name: 'Red Mash',           nameAr: 'ريد ماش',         descriptionAr: 'كوكتيل ريد ماش',         price: 70,  image: IMG_COCKTAIL, category: 'cocktails', popular: false },
   { id: 104, name: 'Blueberry Kiwi',     nameAr: 'بلو بيري كيوي ماش',  descriptionAr: 'كوكتيل بلو بيري كيوي',  price: 80,  image: IMG_COCKTAIL, category: 'cocktails', popular: false },
