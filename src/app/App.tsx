@@ -123,7 +123,6 @@ const menuData: MenuItemType[] = [
   // ════════════════════════════════════════
   //  ماتشا
   // ════════════════════════════════════════
-  { id: 36, name: 'Matcha',              nameAr: 'ماتشا',             descriptionAr: 'ماتشا ساخنة',          price: 60,  image: IMG_MATCHA,   category: 'matcha', popular: false },
   { id: 37, name: 'Iced Matcha',         nameAr: 'آيس ماتشا',        descriptionAr: 'ماتشا على الثلج',      price: 90,  image: IMG_MATCHA2,  category: 'matcha', popular: true  },
   { id: 38, name: 'Matcha Frappe',       nameAr: 'ماتشا فرابيه',     descriptionAr: 'فرابيه ماتشا أخضر',   price: 75,  image: IMG_MATCHA2,  category: 'matcha', popular: false },
   { id: 39, name: 'Iced Matcha Latte',   nameAr: 'آيس ماتشا لاتيه',  descriptionAr: 'لاتيه ماتشا بارد',    price: 70,  image: IMG_MATCHA,   category: 'matcha', popular: false },
