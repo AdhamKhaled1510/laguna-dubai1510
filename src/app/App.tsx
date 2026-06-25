@@ -200,11 +200,11 @@ const menuData: MenuItemType[] = [
   //  موهيتو
   // ════════════════════════════════════════
   { id: 120, name: 'Sun Rise',          nameAr: 'موهيتو صن رايز',    descriptionAr: 'موهيتو صن رايز',       price: 60,  image: IMG_MOJITO,   category: 'mojito', popular: false },
-  { id: 121, name: 'Pina Colada',       nameAr: 'بينا كولادا',       descriptionAr: 'بينا كولادا',           price: 65,  image: IMG_MOJITO,   category: 'mojito', popular: false },
+  { id: 121, name: 'Pina Cola',       nameAr: 'بينا كولا',       descriptionAr: 'بينا كولا',           price: 65,  image: IMG_MOJITO,   category: 'mojito', popular: false },
   { id: 122, name: 'Blue Passion',      nameAr: 'بلو باشن',          descriptionAr: 'موهيتو بلو باشن',       price: 60,  image: IMG_MOJITO,   category: 'mojito', popular: false },
   { id: 123, name: 'Scotch Mint',       nameAr: 'سكوتش منت',         descriptionAr: 'سكوتش منت',             price: 65,  image: IMG_MOJITO,   category: 'mojito', popular: false },
   { id: 124, name: 'Sun Shine',         nameAr: 'موهيتو صن شاين',    descriptionAr: 'موهيتو صن شاين',        price: 60,  image: IMG_MOJITO,   category: 'mojito', popular: false },
-  { id: 125, name: 'Cherry Colada',     nameAr: 'شيري كولادا',       descriptionAr: 'شيري كولادا',           price: 65,  image: IMG_MOJITO,   category: 'mojito', popular: false },
+  { id: 125, name: 'Cherry Cola',     nameAr: 'شيري كولا',       descriptionAr: 'شيري كولا',           price: 65,  image: IMG_MOJITO,   category: 'mojito', popular: false },
   { id: 126, name: 'Laguna Mojito',     nameAr: 'موهيتو لاجونا',     descriptionAr: 'موهيتو لاجونا الخاص',   price: 100, image: IMG_MOJITO,   category: 'mojito', popular: true  },
   // ════════════════════════════════════════
   //  ميلك شيك
