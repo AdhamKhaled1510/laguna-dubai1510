@@ -7,10 +7,21 @@ import { toast } from 'sonner';
 import { Toaster } from './components/ui/sonner';
 import logoUrl from '@/assets/logo.png';
 
-// ── Local menu images (from public/menu/, served as-is) ─────────────
+// ── Local menu images (from src/assets/menu/) ─────────────
+const _menuFiles = import.meta.glob('@/assets/menu/*.{jpg,png,webp}', {
+  eager: true,
+  query: '?url',
+  import: 'default',
+}) as Record<string, string>;
+
+const _menuImageMap: Record<string, string> = {};
+for (const [path, url] of Object.entries(_menuFiles)) {
+  const name = path.split('/').pop()?.replace(/\.(jpg|png|webp)$/, '');
+  if (name) _menuImageMap[name] = url;
+}
+
 function localImage(nameAr: string): string {
-  const base = import.meta.env.BASE_URL || '/';
-  return `${base}menu/${encodeURIComponent(nameAr)}.webp`;
+  return _menuImageMap[nameAr] || '';
 }
 
 // ── Fallback images (used when local image is not available) ─────────────
