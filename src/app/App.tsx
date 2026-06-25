@@ -206,8 +206,6 @@ const menuData: MenuItemType[] = [
   { id: 124, name: 'Sun Shine',         nameAr: 'موهيتو صن شاين',    descriptionAr: 'موهيتو صن شاين',        price: 60,  image: IMG_MOJITO,   category: 'mojito', popular: false },
   { id: 125, name: 'Cherry Colada',     nameAr: 'شيري كولادا',       descriptionAr: 'شيري كولادا',           price: 65,  image: IMG_MOJITO,   category: 'mojito', popular: false },
   { id: 126, name: 'Laguna Mojito',     nameAr: 'موهيتو لاجونا',     descriptionAr: 'موهيتو لاجونا الخاص',   price: 100, image: IMG_MOJITO,   category: 'mojito', popular: true  },
-  { id: 127, name: 'Red Bull',          nameAr: 'ريد بول',           descriptionAr: 'ريد بول',                price: 80,  image: IMG_CAN,      category: 'mojito', popular: false },
-
   // ════════════════════════════════════════
   //  ميلك شيك
   // ════════════════════════════════════════
@@ -262,11 +260,11 @@ const menuData: MenuItemType[] = [
   // ════════════════════════════════════════
   //  فشار
   // ════════════════════════════════════════
-  { id: 180, name: 'Popcorn Salt',      nameAr: 'فشار ملح',         descriptionAr: 'فشار مالح',           price: 20, image: IMG_POPCORN,  category: 'cans', popular: false },
-  { id: 181, name: 'Popcorn Ketchup',   nameAr: 'فشار كاتشب',       descriptionAr: 'فشار كاتشب',          price: 25, image: IMG_POPCORN,  category: 'cans', popular: false },
-  { id: 182, name: 'Popcorn Caramel',   nameAr: 'فشار كراميل',      descriptionAr: 'فشار كراميل',         price: 25, image: IMG_POPCORN,  category: 'cans', popular: true  },
-  { id: 183, name: 'Popcorn Cheese',    nameAr: 'فشار جبنة',        descriptionAr: 'فشار جبنة',           price: 25, image: IMG_POPCORN,  category: 'cans', popular: false },
-  { id: 184, name: 'Popcorn Spicy',     nameAr: 'فشار شطة',         descriptionAr: 'فشار حار',            price: 25, image: IMG_POPCORN,  category: 'cans', popular: false },
+  { id: 180, name: 'Popcorn Salt',      nameAr: 'فشار ملح',         descriptionAr: 'فشار مالح',           price: 20, image: IMG_POPCORN,  category: 'popcorn', popular: false },
+  { id: 181, name: 'Popcorn Ketchup',   nameAr: 'فشار كاتشب',       descriptionAr: 'فشار كاتشب',          price: 25, image: IMG_POPCORN,  category: 'popcorn', popular: false },
+  { id: 182, name: 'Popcorn Caramel',   nameAr: 'فشار كراميل',      descriptionAr: 'فشار كراميل',         price: 25, image: IMG_POPCORN,  category: 'popcorn', popular: true  },
+  { id: 183, name: 'Popcorn Cheese',    nameAr: 'فشار جبنة',        descriptionAr: 'فشار جبنة',           price: 25, image: IMG_POPCORN,  category: 'popcorn', popular: false },
+  { id: 184, name: 'Popcorn Spicy',     nameAr: 'فشار شطة',         descriptionAr: 'فشار حار',            price: 25, image: IMG_POPCORN,  category: 'popcorn', popular: false },
 ].map(item => ({
   ...item,
   image: localImage(item.nameAr) || item.image,
@@ -404,6 +402,7 @@ export default function App() {
     { value: 'juices',   label: 'عصائر' },
     { value: 'cocktails',label: 'كوكتيل' },
     { value: 'mojito',   label: 'موهيتو' },
+    { value: 'popcorn',  label: 'فشار' },
     { value: 'cans',     label: 'كانز' },
   ];
 
