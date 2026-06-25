@@ -12,7 +12,7 @@ export interface MenuItemType {
   price: number;
   image: string;
   category: string;
-  popular?: boolean;
+  orderCount?: number;
 }
 
 interface MenuItemProps {
@@ -36,9 +36,9 @@ export function MenuItem({ item, quantity, onAdd, onRemove, style }: MenuItemPro
           className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:rotate-1"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        {item.popular && (
+        {item.orderCount && item.orderCount > 0 && (
           <Badge className="absolute top-3 right-3 bg-gradient-to-r from-amber-500 to-amber-600 text-white text-xs font-bold shadow-lg px-3 py-1 rounded-full border border-amber-400/30">
-            الأكثر طلباً
+            {item.orderCount} طلب
           </Badge>
         )}
       </div>

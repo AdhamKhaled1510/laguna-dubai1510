@@ -74,199 +74,199 @@ const menuData: MenuItemType[] = [
   // ════════════════════════════════════════
   //  القهوة التركي والنكهات
   // ════════════════════════════════════════
-  { id: 1, name: 'Single Turkish',    nameAr: 'سنجل تركي',     descriptionAr: 'قهوة تركية سنجل',      price: 25,  image: IMG_TURKISH,  category: 'hot', popular: false },
-  { id: 2, name: 'Double Turkish',    nameAr: 'دبل تركي',      descriptionAr: 'قهوة تركية دبل',        price: 35,  image: IMG_TURKISH,  category: 'hot', popular: false },
-  { id: 4, name: 'French Coffee',     nameAr: 'فرنساوي',       descriptionAr: 'قهوة فرنساوي',          price: 40,  image: IMG_TURKISH,  category: 'hot', popular: false },
-  { id: 5, name: 'Flavored Coffee',   nameAr: 'قهوة نكهات',    descriptionAr: 'قهوة بنكهات مميزة',     price: 60,  image: IMG_TURKISH,  category: 'hot', popular: true  },
+  { id: 1, name: 'Single Turkish',    nameAr: 'سنجل تركي',     descriptionAr: 'قهوة تركية سنجل',      price: 25,  image: IMG_TURKISH,  category: 'hot' },
+  { id: 2, name: 'Double Turkish',    nameAr: 'دبل تركي',      descriptionAr: 'قهوة تركية دبل',        price: 35,  image: IMG_TURKISH,  category: 'hot' },
+  { id: 4, name: 'French Coffee',     nameAr: 'فرنساوي',       descriptionAr: 'قهوة فرنساوي',          price: 40,  image: IMG_TURKISH,  category: 'hot' },
+  { id: 5, name: 'Flavored Coffee',   nameAr: 'قهوة نكهات',    descriptionAr: 'قهوة بنكهات مميزة',     price: 60,  image: IMG_TURKISH,  category: 'hot'  },
   // ════════════════════════════════════════
   //  الشاي والأعشاب
   // ════════════════════════════════════════
-  { id: 6,  name: 'Red Tea',          nameAr: 'شاي أحمر',      descriptionAr: 'شاي أحمر',              price: 20,  image: IMG_TEA,      category: 'hot', popular: false },
-  { id: 7,  name: 'Green Tea',        nameAr: 'شاي أخضر',      descriptionAr: 'شاي أخضر',              price: 20,  image: IMG_TEA,      category: 'hot', popular: false },
-  { id: 8,  name: 'Flavored Tea',     nameAr: 'شاي نكهات',     descriptionAr: 'شاي بنكهات متنوعة',     price: 25,  image: IMG_TEA,      category: 'hot', popular: false },
-  { id: 9,  name: 'Milk Tea',         nameAr: 'شاي بلبن',      descriptionAr: 'شاي بالحليب الطازج',    price: 50,  image: IMG_TEA,      category: 'hot', popular: false },
-  { id: 10, name: 'Karak Tea',        nameAr: 'شاي كرك',       descriptionAr: 'شاي كرك بالحليب',       price: 50,  image: IMG_TEA,      category: 'hot', popular: true  },
-  { id: 11, name: 'Tea Pot',          nameAr: 'براد شاي',      descriptionAr: 'برّاد شاي للمجموعة',    price: 60,  image: IMG_TEA,      category: 'hot', popular: false },
-  { id: 12, name: 'Herbal Tea',       nameAr: 'أعشاب',         descriptionAr: 'مشروب أعشاب طبيعية',    price: 35,  image: IMG_TEA,      category: 'hot', popular: false },
+  { id: 6,  name: 'Red Tea',          nameAr: 'شاي أحمر',      descriptionAr: 'شاي أحمر',              price: 20,  image: IMG_TEA,      category: 'hot' },
+  { id: 7,  name: 'Green Tea',        nameAr: 'شاي أخضر',      descriptionAr: 'شاي أخضر',              price: 20,  image: IMG_TEA,      category: 'hot' },
+  { id: 8,  name: 'Flavored Tea',     nameAr: 'شاي نكهات',     descriptionAr: 'شاي بنكهات متنوعة',     price: 25,  image: IMG_TEA,      category: 'hot' },
+  { id: 9,  name: 'Milk Tea',         nameAr: 'شاي بلبن',      descriptionAr: 'شاي بالحليب الطازج',    price: 50,  image: IMG_TEA,      category: 'hot' },
+  { id: 10, name: 'Karak Tea',        nameAr: 'شاي كرك',       descriptionAr: 'شاي كرك بالحليب',       price: 50,  image: IMG_TEA,      category: 'hot'  },
+  { id: 11, name: 'Tea Pot',          nameAr: 'براد شاي',      descriptionAr: 'برّاد شاي للمجموعة',    price: 60,  image: IMG_TEA,      category: 'hot' },
+  { id: 12, name: 'Herbal Tea',       nameAr: 'أعشاب',         descriptionAr: 'مشروب أعشاب طبيعية',    price: 35,  image: IMG_TEA,      category: 'hot' },
   // ════════════════════════════════════════
   //  مشروبات الإسبرسو
   // ════════════════════════════════════════
-  { id: 13, name: 'Single Espresso',  nameAr: 'سنجل إسبرسو',  descriptionAr: 'إسبريسو سنجل',          price: 35,  image: IMG_ESPRESSO,  category: 'hot', popular: false },
-  { id: 14, name: 'Double Espresso',  nameAr: 'دبل إسبرسو',   descriptionAr: 'إسبريسو دبل',            price: 50,  image: IMG_ESPRESSO,  category: 'hot', popular: false },
-  { id: 15, name: 'Cappuccino',       nameAr: 'كابتشينو',     descriptionAr: 'كابتشينو كريمي',        price: 60,  image: IMG_CAPPUCCINO,category: 'hot', popular: true  },
-  { id: 16, name: 'Dark Mocha',       nameAr: 'دارك موكا',     descriptionAr: 'موكا داكن غني',          price: 60,  image: IMG_MOCHA,     category: 'hot', popular: false },
-  { id: 17, name: 'White Mocha',      nameAr: 'وايت موكا',     descriptionAr: 'موكا أبيض لذيذ',        price: 65,  image: IMG_MOCHA,     category: 'hot', popular: true  },
-  { id: 18, name: 'Cortado',          nameAr: 'كورتادو',       descriptionAr: 'كورتادو مكثف',           price: 65,  image: IMG_ESPRESSO,  category: 'hot', popular: false },
-  { id: 19, name: 'Latte',            nameAr: 'لاتيه',         descriptionAr: 'لاتيه بالحليب',          price: 60,  image: IMG_LATTE,     category: 'hot', popular: true  },
+  { id: 13, name: 'Single Espresso',  nameAr: 'سنجل إسبرسو',  descriptionAr: 'إسبريسو سنجل',          price: 35,  image: IMG_ESPRESSO,  category: 'hot' },
+  { id: 14, name: 'Double Espresso',  nameAr: 'دبل إسبرسو',   descriptionAr: 'إسبريسو دبل',            price: 50,  image: IMG_ESPRESSO,  category: 'hot' },
+  { id: 15, name: 'Cappuccino',       nameAr: 'كابتشينو',     descriptionAr: 'كابتشينو كريمي',        price: 60,  image: IMG_CAPPUCCINO,category: 'hot'  },
+  { id: 16, name: 'Dark Mocha',       nameAr: 'دارك موكا',     descriptionAr: 'موكا داكن غني',          price: 60,  image: IMG_MOCHA,     category: 'hot' },
+  { id: 17, name: 'White Mocha',      nameAr: 'وايت موكا',     descriptionAr: 'موكا أبيض لذيذ',        price: 65,  image: IMG_MOCHA,     category: 'hot'  },
+  { id: 18, name: 'Cortado',          nameAr: 'كورتادو',       descriptionAr: 'كورتادو مكثف',           price: 65,  image: IMG_ESPRESSO,  category: 'hot' },
+  { id: 19, name: 'Latte',            nameAr: 'لاتيه',         descriptionAr: 'لاتيه بالحليب',          price: 60,  image: IMG_LATTE,     category: 'hot'  },
   // ════════════════════════════════════════
   //  مشروبات ساخنة أخرى
   // ════════════════════════════════════════
-  { id: 20, name: 'Cinnamon',         nameAr: 'قرفة',          descriptionAr: 'مشروب قرفة ساخن',       price: 20,  image: IMG_TEA,      category: 'hot', popular: false },
-  { id: 21, name: 'Fenugreek',        nameAr: 'حلبة',          descriptionAr: 'مشروب حلبة',             price: 20,  image: IMG_TEA,      category: 'hot', popular: false },
-  { id: 22, name: 'Cocoa',            nameAr: 'كاكاو',         descriptionAr: 'كاكاو ساخن',             price: 20,  image: IMG_HOT_CHOC, category: 'hot', popular: false },
-  { id: 23, name: 'Ginger',           nameAr: 'زنجبيل',        descriptionAr: 'زنجبيل طازج ساخن',      price: 20,  image: IMG_TEA,      category: 'hot', popular: false },
-  { id: 24, name: 'Cinnamon Milk',    nameAr: 'قرفة حليب',     descriptionAr: 'قرفة بالحليب الساخن',   price: 30,  image: IMG_TEA,      category: 'hot', popular: false },
-  { id: 25, name: 'Fenugreek Milk',   nameAr: 'حلبة حليب',     descriptionAr: 'حلبة بالحليب الساخن',   price: 30,  image: IMG_TEA,      category: 'hot', popular: false },
-  { id: 26, name: 'Hot Chocolate',    nameAr: 'هوت شوكلت',     descriptionAr: 'شوكولاتة ساخنة كريمية', price: 30,  image: IMG_HOT_CHOC, category: 'hot', popular: false },
-  { id: 27, name: 'Sahlab',           nameAr: 'سحلب',          descriptionAr: 'سحلب ساخن',              price: 50,  image: IMG_HOT_CHOC, category: 'hot', popular: false },
-  { id: 28, name: 'Sahlab w/ Nuts',   nameAr: 'سحلب مكسرات',  descriptionAr: 'سحلب ساخن بالمكسرات',   price: 50,  image: IMG_HOT_CHOC, category: 'hot', popular: true  },
+  { id: 20, name: 'Cinnamon',         nameAr: 'قرفة',          descriptionAr: 'مشروب قرفة ساخن',       price: 20,  image: IMG_TEA,      category: 'hot' },
+  { id: 21, name: 'Fenugreek',        nameAr: 'حلبة',          descriptionAr: 'مشروب حلبة',             price: 20,  image: IMG_TEA,      category: 'hot' },
+  { id: 22, name: 'Cocoa',            nameAr: 'كاكاو',         descriptionAr: 'كاكاو ساخن',             price: 20,  image: IMG_HOT_CHOC, category: 'hot' },
+  { id: 23, name: 'Ginger',           nameAr: 'زنجبيل',        descriptionAr: 'زنجبيل طازج ساخن',      price: 20,  image: IMG_TEA,      category: 'hot' },
+  { id: 24, name: 'Cinnamon Milk',    nameAr: 'قرفة حليب',     descriptionAr: 'قرفة بالحليب الساخن',   price: 30,  image: IMG_TEA,      category: 'hot' },
+  { id: 25, name: 'Fenugreek Milk',   nameAr: 'حلبة حليب',     descriptionAr: 'حلبة بالحليب الساخن',   price: 30,  image: IMG_TEA,      category: 'hot' },
+  { id: 26, name: 'Hot Chocolate',    nameAr: 'هوت شوكلت',     descriptionAr: 'شوكولاتة ساخنة كريمية', price: 30,  image: IMG_HOT_CHOC, category: 'hot' },
+  { id: 27, name: 'Sahlab',           nameAr: 'سحلب',          descriptionAr: 'سحلب ساخن',              price: 50,  image: IMG_HOT_CHOC, category: 'hot' },
+  { id: 28, name: 'Sahlab w/ Nuts',   nameAr: 'سحلب مكسرات',  descriptionAr: 'سحلب ساخن بالمكسرات',   price: 50,  image: IMG_HOT_CHOC, category: 'hot'  },
 
   // ════════════════════════════════════════
   //  آيس كوفي
   // ════════════════════════════════════════
-  { id: 29, name: 'Iced Mocha',       nameAr: 'آيس موكا',      descriptionAr: 'موكا بارد على الثلج',   price: 60,  image: IMG_ICED,     category: 'iced', popular: false },
-  { id: 30, name: 'Iced Coffee',      nameAr: 'آيس كوفي',      descriptionAr: 'قهوة باردة',             price: 60,  image: IMG_ICED_COFFEE,category: 'iced', popular: false },
-  { id: 31, name: 'Iced Latte',       nameAr: 'آيس لاتيه',     descriptionAr: 'لاتيه بارد',             price: 60,  image: IMG_ICED,     category: 'iced', popular: true  },
-  { id: 32, name: 'Iced Chocolate',   nameAr: 'آيس شوكلت',     descriptionAr: 'شوكولاتة باردة',        price: 70,  image: IMG_COLD2,    category: 'iced', popular: false },
-  { id: 33, name: 'Iced Coffee Flav', nameAr: 'آيس كوفي نكهات',descriptionAr: 'قهوة باردة بنكهات',      price: 70,  image: IMG_ICED_COFFEE,category: 'iced', popular: false },
-  { id: 34, name: 'Spanish Latte',    nameAr: 'اسبانش لاتيه',  descriptionAr: 'لاتيه اسباني مميز',     price: 70,  image: IMG_ICED,     category: 'iced', popular: true  },
-  { id: 35, name: 'Iced Americano',   nameAr: 'آيس أمريكان',   descriptionAr: 'أمريكانو على الثلج',    price: 70,  image: IMG_ICED_COFFEE,category: 'iced', popular: false },
+  { id: 29, name: 'Iced Mocha',       nameAr: 'آيس موكا',      descriptionAr: 'موكا بارد على الثلج',   price: 60,  image: IMG_ICED,     category: 'iced' },
+  { id: 30, name: 'Iced Coffee',      nameAr: 'آيس كوفي',      descriptionAr: 'قهوة باردة',             price: 60,  image: IMG_ICED_COFFEE,category: 'iced' },
+  { id: 31, name: 'Iced Latte',       nameAr: 'آيس لاتيه',     descriptionAr: 'لاتيه بارد',             price: 60,  image: IMG_ICED,     category: 'iced'  },
+  { id: 32, name: 'Iced Chocolate',   nameAr: 'آيس شوكلت',     descriptionAr: 'شوكولاتة باردة',        price: 70,  image: IMG_COLD2,    category: 'iced' },
+  { id: 33, name: 'Iced Coffee Flav', nameAr: 'آيس كوفي نكهات',descriptionAr: 'قهوة باردة بنكهات',      price: 70,  image: IMG_ICED_COFFEE,category: 'iced' },
+  { id: 34, name: 'Spanish Latte',    nameAr: 'اسبانش لاتيه',  descriptionAr: 'لاتيه اسباني مميز',     price: 70,  image: IMG_ICED,     category: 'iced'  },
+  { id: 35, name: 'Iced Americano',   nameAr: 'آيس أمريكان',   descriptionAr: 'أمريكانو على الثلج',    price: 70,  image: IMG_ICED_COFFEE,category: 'iced' },
   // ════════════════════════════════════════
   //  ماتشا
   // ════════════════════════════════════════
-  { id: 37, name: 'Iced Matcha',         nameAr: 'آيس ماتشا',        descriptionAr: 'ماتشا على الثلج',      price: 90,  image: IMG_MATCHA2,  category: 'matcha', popular: true  },
-  { id: 38, name: 'Matcha Frappe',       nameAr: 'ماتشا فرابيه',     descriptionAr: 'فرابيه ماتشا أخضر',   price: 75,  image: IMG_MATCHA2,  category: 'matcha', popular: false },
-  { id: 39, name: 'Iced Matcha Latte',   nameAr: 'آيس ماتشا لاتيه',  descriptionAr: 'لاتيه ماتشا بارد',    price: 70,  image: IMG_MATCHA,   category: 'matcha', popular: false },
-  { id: 40, name: 'Matcha Milk Shake',   nameAr: 'ماتشا ميلك شيك',   descriptionAr: 'ميلك شيك ماتشا',      price: 90,  image: IMG_MATCHA,   category: 'matcha', popular: false },
+  { id: 37, name: 'Iced Matcha',         nameAr: 'آيس ماتشا',        descriptionAr: 'ماتشا على الثلج',      price: 90,  image: IMG_MATCHA2,  category: 'matcha'  },
+  { id: 38, name: 'Matcha Frappe',       nameAr: 'ماتشا فرابيه',     descriptionAr: 'فرابيه ماتشا أخضر',   price: 75,  image: IMG_MATCHA2,  category: 'matcha' },
+  { id: 39, name: 'Iced Matcha Latte',   nameAr: 'آيس ماتشا لاتيه',  descriptionAr: 'لاتيه ماتشا بارد',    price: 70,  image: IMG_MATCHA,   category: 'matcha' },
+  { id: 40, name: 'Matcha Milk Shake',   nameAr: 'ماتشا ميلك شيك',   descriptionAr: 'ميلك شيك ماتشا',      price: 90,  image: IMG_MATCHA,   category: 'matcha' },
 
   // ════════════════════════════════════════
   //  فرابيه
   // ════════════════════════════════════════
-  { id: 41, name: 'Vanilla Frappe',      nameAr: 'فرابيه فانيليا',   descriptionAr: 'فرابيه فانيليا',     price: 60, image: IMG_FRAPPE,   category: 'frappe', popular: false },
-  { id: 42, name: 'Caramel Frappe',      nameAr: 'فرابيه كارميل',    descriptionAr: 'فرابيه بالكراميل',   price: 65, image: IMG_FRAPPE,   category: 'frappe', popular: true  },
-  { id: 43, name: 'White Choc Frappe',   nameAr: 'فرابيه وايت شوكلت',descriptionAr: 'فرابيه شوكولاتة بيضاء',price: 65, image: IMG_FRAPPE, category: 'frappe', popular: false },
-  { id: 44, name: 'Lotus Frappe',        nameAr: 'فرابيه لوتس',      descriptionAr: 'فرابيه بالبسكويت',   price: 70, image: IMG_FRAPPE,   category: 'frappe', popular: true  },
-  { id: 45, name: 'Chocolate Frappe',    nameAr: 'فرابيه شوكلت',     descriptionAr: 'فرابيه بالشوكولاتة', price: 75, image: IMG_FRAPPE2,  category: 'frappe', popular: false },
-  { id: 46, name: 'Hazelnut Frappe',     nameAr: 'فرابيه بندق',      descriptionAr: 'فرابيه بالبندق',     price: 65, image: IMG_FRAPPE,   category: 'frappe', popular: false },
-  { id: 47, name: 'Nutella Frappe',      nameAr: 'فرابيه نوتيلا',    descriptionAr: 'فرابيه بالنوتيلا',   price: 65, image: IMG_FRAPPE,   category: 'frappe', popular: true  },
-  { id: 48, name: 'Oreo Frappe',         nameAr: 'فرابيه أوريو',     descriptionAr: 'فرابيه بالأوريو',    price: 75, image: IMG_FRAPPE,   category: 'frappe', popular: false },
-  { id: 49, name: 'Pistachio Frappe',    nameAr: 'فرابيه بيستاشيو',  descriptionAr: 'فرابيه بالفستق',     price: 70, image: IMG_FRAPPE,   category: 'frappe', popular: false },
-  { id: 190, name: 'Frappuccino',         nameAr: 'فرابتشينو',       descriptionAr: 'فرابتشينو',          price: 60, image: IMG_FRAPPE,   category: 'frappe', popular: false },
+  { id: 41, name: 'Vanilla Frappe',      nameAr: 'فرابيه فانيليا',   descriptionAr: 'فرابيه فانيليا',     price: 60, image: IMG_FRAPPE,   category: 'frappe' },
+  { id: 42, name: 'Caramel Frappe',      nameAr: 'فرابيه كارميل',    descriptionAr: 'فرابيه بالكراميل',   price: 65, image: IMG_FRAPPE,   category: 'frappe'  },
+  { id: 43, name: 'White Choc Frappe',   nameAr: 'فرابيه وايت شوكلت',descriptionAr: 'فرابيه شوكولاتة بيضاء',price: 65, image: IMG_FRAPPE, category: 'frappe' },
+  { id: 44, name: 'Lotus Frappe',        nameAr: 'فرابيه لوتس',      descriptionAr: 'فرابيه بالبسكويت',   price: 70, image: IMG_FRAPPE,   category: 'frappe'  },
+  { id: 45, name: 'Chocolate Frappe',    nameAr: 'فرابيه شوكلت',     descriptionAr: 'فرابيه بالشوكولاتة', price: 75, image: IMG_FRAPPE2,  category: 'frappe' },
+  { id: 46, name: 'Hazelnut Frappe',     nameAr: 'فرابيه بندق',      descriptionAr: 'فرابيه بالبندق',     price: 65, image: IMG_FRAPPE,   category: 'frappe' },
+  { id: 47, name: 'Nutella Frappe',      nameAr: 'فرابيه نوتيلا',    descriptionAr: 'فرابيه بالنوتيلا',   price: 65, image: IMG_FRAPPE,   category: 'frappe'  },
+  { id: 48, name: 'Oreo Frappe',         nameAr: 'فرابيه أوريو',     descriptionAr: 'فرابيه بالأوريو',    price: 75, image: IMG_FRAPPE,   category: 'frappe' },
+  { id: 49, name: 'Pistachio Frappe',    nameAr: 'فرابيه بيستاشيو',  descriptionAr: 'فرابيه بالفستق',     price: 70, image: IMG_FRAPPE,   category: 'frappe' },
+  { id: 190, name: 'Frappuccino',         nameAr: 'فرابتشينو',       descriptionAr: 'فرابتشينو',          price: 60, image: IMG_FRAPPE,   category: 'frappe' },
   // ════════════════════════════════════════
   //  اسموزي
   // ════════════════════════════════════════
-  { id: 50, name: 'Kiwi Smoothie',       nameAr: 'اسموزي كيوي',     descriptionAr: 'سموزي كيوي',         price: 55, image: IMG_SMOOTHIE,    category: 'smoothie', popular: false },
-  { id: 51, name: 'Lemon Mint Smoothie', nameAr: 'اسموزي ليمون نعناع',descriptionAr: 'سموزي ليمون ونعناع',price: 60, image: IMG_LEMON,      category: 'smoothie', popular: false },
-  { id: 52, name: 'Lemon Smoothie',      nameAr: 'اسموزي ليمون',    descriptionAr: 'سموزي ليمون',         price: 55, image: IMG_LEMON,      category: 'smoothie', popular: false },
-  { id: 53, name: 'Blueberry Smoothie',  nameAr: 'اسموزي بلو بيري',  descriptionAr: 'سموزي بلو بيري',     price: 60, image: IMG_SMOOTHIE,    category: 'smoothie', popular: false },
-  { id: 54, name: 'Laguna Smoothie',     nameAr: 'اسموزي لاجونا',    descriptionAr: 'سموزي لاجونا مميز',  price: 75, image: IMG_SMOOTHIE,    category: 'smoothie', popular: true  },
-  { id: 55, name: 'Passion Smoothie',    nameAr: 'اسموزي باشن فروت', descriptionAr: 'سموزي باشن فروت',   price: 55, image: IMG_SMOOTHIE,    category: 'smoothie', popular: false },
-  { id: 56, name: 'Watermelon Smoothie', nameAr: 'اسموزي بطيخ',     descriptionAr: 'سموزي بطيخ منعش',    price: 60, image: IMG_SMOOTHIE,    category: 'smoothie', popular: false },
-  { id: 57, name: 'Mix Berry Smoothie',  nameAr: 'اسموزي ميكس بيري', descriptionAr: 'سموزي التوت المشكل',price: 65, image: IMG_SMOOTHIE,    category: 'smoothie', popular: false },
-  { id: 58, name: 'Mango Smoothie',      nameAr: 'اسموزي مانجا',    descriptionAr: 'سموزي مانجا',         price: 60, image: IMG_SMOOTHIE,    category: 'smoothie', popular: false },
+  { id: 50, name: 'Kiwi Smoothie',       nameAr: 'اسموزي كيوي',     descriptionAr: 'سموزي كيوي',         price: 55, image: IMG_SMOOTHIE,    category: 'smoothie' },
+  { id: 51, name: 'Lemon Mint Smoothie', nameAr: 'اسموزي ليمون نعناع',descriptionAr: 'سموزي ليمون ونعناع',price: 60, image: IMG_LEMON,      category: 'smoothie' },
+  { id: 52, name: 'Lemon Smoothie',      nameAr: 'اسموزي ليمون',    descriptionAr: 'سموزي ليمون',         price: 55, image: IMG_LEMON,      category: 'smoothie' },
+  { id: 53, name: 'Blueberry Smoothie',  nameAr: 'اسموزي بلو بيري',  descriptionAr: 'سموزي بلو بيري',     price: 60, image: IMG_SMOOTHIE,    category: 'smoothie' },
+  { id: 54, name: 'Laguna Smoothie',     nameAr: 'اسموزي لاجونا',    descriptionAr: 'سموزي لاجونا مميز',  price: 75, image: IMG_SMOOTHIE,    category: 'smoothie'  },
+  { id: 55, name: 'Passion Smoothie',    nameAr: 'اسموزي باشن فروت', descriptionAr: 'سموزي باشن فروت',   price: 55, image: IMG_SMOOTHIE,    category: 'smoothie' },
+  { id: 56, name: 'Watermelon Smoothie', nameAr: 'اسموزي بطيخ',     descriptionAr: 'سموزي بطيخ منعش',    price: 60, image: IMG_SMOOTHIE,    category: 'smoothie' },
+  { id: 57, name: 'Mix Berry Smoothie',  nameAr: 'اسموزي ميكس بيري', descriptionAr: 'سموزي التوت المشكل',price: 65, image: IMG_SMOOTHIE,    category: 'smoothie' },
+  { id: 58, name: 'Mango Smoothie',      nameAr: 'اسموزي مانجا',    descriptionAr: 'سموزي مانجا',         price: 60, image: IMG_SMOOTHIE,    category: 'smoothie' },
 
   // ════════════════════════════════════════
   //  العصائر الفريش
   // ════════════════════════════════════════
-  { id: 70, name: 'Lemon Juice',        nameAr: 'ليمون',             descriptionAr: 'عصير ليمون طازج',     price: 55,  image: IMG_LEMON,    category: 'juices', popular: false },
-  { id: 71, name: 'Jujube Juice',       nameAr: 'عناب',              descriptionAr: 'عصير عناب',            price: 55,  image: IMG_JUICE2,   category: 'juices', popular: false },
-  { id: 72, name: 'Orange Juice',       nameAr: 'برتقال',            descriptionAr: 'عصير برتقال طازج',     price: 60,  image: IMG_JUICE,    category: 'juices', popular: false },
-  { id: 73, name: 'Strawberry Juice',   nameAr: 'فراولة',            descriptionAr: 'عصير فراولة طازج',     price: 60,  image: IMG_JUICE2,   category: 'juices', popular: false },
-  { id: 74, name: 'Mango Juice',        nameAr: 'مانجا',             descriptionAr: 'عصير مانجا طازج',      price: 60,  image: IMG_JUICE,    category: 'juices', popular: false },
-  { id: 75, name: 'Guava Juice',        nameAr: 'جوافة',             descriptionAr: 'عصير جوافة طازج',      price: 60,  image: IMG_JUICE2,   category: 'juices', popular: false },
-  { id: 76, name: 'Banana Juice',       nameAr: 'موز',               descriptionAr: 'عصير موز طازج',        price: 60,  image: IMG_JUICE,    category: 'juices', popular: false },
-  { id: 77, name: 'Watermelon Juice',   nameAr: 'بطيخ',              descriptionAr: 'عصير بطيخ منعش',       price: 60,  image: IMG_JUICE,    category: 'juices', popular: false },
-  { id: 78, name: 'Orange Carrot',      nameAr: 'برتقال جزر',        descriptionAr: 'برتقال وجزر طازج',     price: 65,  image: IMG_JUICE,    category: 'juices', popular: false },
-  { id: 79, name: 'Strawberry Milk',    nameAr: 'فراولة لبن',        descriptionAr: 'عصير فراولة بالحليب',  price: 65,  image: IMG_JUICE2,   category: 'juices', popular: true  },
-  { id: 80, name: 'Guava Milk',         nameAr: 'جوافة لبن',         descriptionAr: 'عصير جوافة بالحليب',   price: 65,  image: IMG_JUICE2,   category: 'juices', popular: false },
-  { id: 81, name: 'Guava Mint',         nameAr: 'جوافة نعناع',       descriptionAr: 'جوافة ونعناع طازج',    price: 65,  image: IMG_JUICE2,   category: 'juices', popular: false },
-  { id: 82, name: 'Lemon Mint',         nameAr: 'ليمون نعناع',       descriptionAr: 'ليمون بالنعناع طازج',  price: 55,  image: IMG_LEMON,    category: 'juices', popular: true  },
-  { id: 83, name: 'Date Milk',          nameAr: 'بلح بلبن',          descriptionAr: 'بلح بالحليب',           price: 65,  image: IMG_JUICE,    category: 'juices', popular: false },
-  { id: 84, name: 'Pomegranate',        nameAr: 'رمان',              descriptionAr: 'عصير رمان طازج',        price: 75,  image: IMG_JUICE,    category: 'juices', popular: false },
-  { id: 85, name: 'Kiwi Juice',         nameAr: 'كيوي',              descriptionAr: 'عصير كيوي طازج',        price: 75,  image: IMG_JUICE2,   category: 'juices', popular: false },
-  { id: 86, name: 'Avocado Juice',      nameAr: 'أفوكادو',           descriptionAr: 'عصير أفوكادو',          price: 80,  image: IMG_JUICE2,   category: 'juices', popular: false },
-  { id: 87, name: 'Avocado Honey Nuts', nameAr: 'أفوكادو عسل مكسرات',descriptionAr: 'عصير أفوكادو بالعسل',  price: 100, image: IMG_JUICE2,   category: 'juices', popular: true  },
-  { id: 88, name: 'Laguna Healthy',     nameAr: 'فريش هيلثي لاجونا', descriptionAr: 'عصير هيلثي مميز',      price: 100, image: IMG_JUICE,    category: 'juices', popular: true  },
+  { id: 70, name: 'Lemon Juice',        nameAr: 'ليمون',             descriptionAr: 'عصير ليمون طازج',     price: 55,  image: IMG_LEMON,    category: 'juices' },
+  { id: 71, name: 'Jujube Juice',       nameAr: 'عناب',              descriptionAr: 'عصير عناب',            price: 55,  image: IMG_JUICE2,   category: 'juices' },
+  { id: 72, name: 'Orange Juice',       nameAr: 'برتقال',            descriptionAr: 'عصير برتقال طازج',     price: 60,  image: IMG_JUICE,    category: 'juices' },
+  { id: 73, name: 'Strawberry Juice',   nameAr: 'فراولة',            descriptionAr: 'عصير فراولة طازج',     price: 60,  image: IMG_JUICE2,   category: 'juices' },
+  { id: 74, name: 'Mango Juice',        nameAr: 'مانجا',             descriptionAr: 'عصير مانجا طازج',      price: 60,  image: IMG_JUICE,    category: 'juices' },
+  { id: 75, name: 'Guava Juice',        nameAr: 'جوافة',             descriptionAr: 'عصير جوافة طازج',      price: 60,  image: IMG_JUICE2,   category: 'juices' },
+  { id: 76, name: 'Banana Juice',       nameAr: 'موز',               descriptionAr: 'عصير موز طازج',        price: 60,  image: IMG_JUICE,    category: 'juices' },
+  { id: 77, name: 'Watermelon Juice',   nameAr: 'بطيخ',              descriptionAr: 'عصير بطيخ منعش',       price: 60,  image: IMG_JUICE,    category: 'juices' },
+  { id: 78, name: 'Orange Carrot',      nameAr: 'برتقال جزر',        descriptionAr: 'برتقال وجزر طازج',     price: 65,  image: IMG_JUICE,    category: 'juices' },
+  { id: 79, name: 'Strawberry Milk',    nameAr: 'فراولة لبن',        descriptionAr: 'عصير فراولة بالحليب',  price: 65,  image: IMG_JUICE2,   category: 'juices'  },
+  { id: 80, name: 'Guava Milk',         nameAr: 'جوافة لبن',         descriptionAr: 'عصير جوافة بالحليب',   price: 65,  image: IMG_JUICE2,   category: 'juices' },
+  { id: 81, name: 'Guava Mint',         nameAr: 'جوافة نعناع',       descriptionAr: 'جوافة ونعناع طازج',    price: 65,  image: IMG_JUICE2,   category: 'juices' },
+  { id: 82, name: 'Lemon Mint',         nameAr: 'ليمون نعناع',       descriptionAr: 'ليمون بالنعناع طازج',  price: 55,  image: IMG_LEMON,    category: 'juices'  },
+  { id: 83, name: 'Date Milk',          nameAr: 'بلح بلبن',          descriptionAr: 'بلح بالحليب',           price: 65,  image: IMG_JUICE,    category: 'juices' },
+  { id: 84, name: 'Pomegranate',        nameAr: 'رمان',              descriptionAr: 'عصير رمان طازج',        price: 75,  image: IMG_JUICE,    category: 'juices' },
+  { id: 85, name: 'Kiwi Juice',         nameAr: 'كيوي',              descriptionAr: 'عصير كيوي طازج',        price: 75,  image: IMG_JUICE2,   category: 'juices' },
+  { id: 86, name: 'Avocado Juice',      nameAr: 'أفوكادو',           descriptionAr: 'عصير أفوكادو',          price: 80,  image: IMG_JUICE2,   category: 'juices' },
+  { id: 87, name: 'Avocado Honey Nuts', nameAr: 'أفوكادو عسل مكسرات',descriptionAr: 'عصير أفوكادو بالعسل',  price: 100, image: IMG_JUICE2,   category: 'juices'  },
+  { id: 88, name: 'Laguna Healthy',     nameAr: 'فريش هيلثي لاجونا', descriptionAr: 'عصير هيلثي مميز',      price: 100, image: IMG_JUICE,    category: 'juices'  },
 
   // ════════════════════════════════════════
   //  الكوكتيلات
   // ════════════════════════════════════════
-  { id: 100, name: 'Hawaii',            nameAr: 'هاواي',             descriptionAr: 'كوكتيل هاواي',           price: 70,  image: IMG_COCKTAIL, category: 'cocktails', popular: false },
-  { id: 101, name: 'Larouz',            nameAr: 'لاروز',             descriptionAr: 'كوكتيل لاروز',           price: 75,  image: IMG_COCKTAIL, category: 'cocktails', popular: false },
-  { id: 102, name: 'Green Red',         nameAr: 'جرين ريد',          descriptionAr: 'كوكتيل روز',            price: 85,  image: IMG_COCKTAIL, category: 'cocktails', popular: false },
-  { id: 103, name: 'Red Mash',           nameAr: 'ريد ماش',         descriptionAr: 'كوكتيل ريد ماش',         price: 70,  image: IMG_COCKTAIL, category: 'cocktails', popular: false },
-  { id: 104, name: 'Blueberry Kiwi',     nameAr: 'بلو بيري كيوي ماش',  descriptionAr: 'كوكتيل بلو بيري كيوي',  price: 80,  image: IMG_COCKTAIL, category: 'cocktails', popular: false },
-  { id: 105, name: 'Enabi',             nameAr: 'عنابي',             descriptionAr: 'كوكتيل عنابي',           price: 80,  image: IMG_COCKTAIL, category: 'cocktails', popular: false },
-  { id: 106, name: 'Breezy Kiwi',       nameAr: 'بريزي كيوي',        descriptionAr: 'بريزي كيوي',             price: 70,  image: IMG_COCKTAIL, category: 'cocktails', popular: false },
-  { id: 107, name: 'White Ocean',       nameAr: 'وايت أوشن',         descriptionAr: 'وايت أوشن',              price: 75,  image: IMG_COCKTAIL, category: 'cocktails', popular: false },
-  { id: 108, name: 'Kamba',             nameAr: 'كامبا',             descriptionAr: 'كوكتيل كامبا',           price: 85,  image: IMG_COCKTAIL, category: 'cocktails', popular: false },
-  { id: 109, name: 'Paradise Passion',  nameAr: 'بارادايس باشن',     descriptionAr: 'كوكتيل بارادايس',        price: 70,  image: IMG_COCKTAIL, category: 'cocktails', popular: false },
-  { id: 110, name: 'Florida',           nameAr: 'فلوريدا',           descriptionAr: 'كوكتيل فلوريدا',         price: 85,  image: IMG_COCKTAIL, category: 'cocktails', popular: false },
-  { id: 111, name: 'Galaxy',            nameAr: 'جالاكسي',           descriptionAr: 'كوكتيل جالاكسي',         price: 90,  image: IMG_COCKTAIL, category: 'cocktails', popular: true  },
-  { id: 112, name: 'Heartache',         nameAr: 'عوار القلب',        descriptionAr: 'كوكتيل عوار القلب',      price: 90,  image: IMG_COCKTAIL, category: 'cocktails', popular: false },
-  { id: 113, name: 'Laguna Signature',  nameAr: 'لاجونا سجنتشر',     descriptionAr: 'كوكتيل لاجونا الخاص',    price: 100, image: IMG_COCKTAIL, category: 'cocktails', popular: true  },
-  { id: 114, name: 'Delci',             nameAr: 'ديلسي',             descriptionAr: 'كوكتيل ديلسي',           price: 90,  image: IMG_COCKTAIL, category: 'cocktails', popular: false },
+  { id: 100, name: 'Hawaii',            nameAr: 'هاواي',             descriptionAr: 'كوكتيل هاواي',           price: 70,  image: IMG_COCKTAIL, category: 'cocktails' },
+  { id: 101, name: 'Larouz',            nameAr: 'لاروز',             descriptionAr: 'كوكتيل لاروز',           price: 75,  image: IMG_COCKTAIL, category: 'cocktails' },
+  { id: 102, name: 'Green Red',         nameAr: 'جرين ريد',          descriptionAr: 'كوكتيل روز',            price: 85,  image: IMG_COCKTAIL, category: 'cocktails' },
+  { id: 103, name: 'Red Mash',           nameAr: 'ريد ماش',         descriptionAr: 'كوكتيل ريد ماش',         price: 70,  image: IMG_COCKTAIL, category: 'cocktails' },
+  { id: 104, name: 'Blueberry Kiwi',     nameAr: 'بلو بيري كيوي ماش',  descriptionAr: 'كوكتيل بلو بيري كيوي',  price: 80,  image: IMG_COCKTAIL, category: 'cocktails' },
+  { id: 105, name: 'Enabi',             nameAr: 'عنابي',             descriptionAr: 'كوكتيل عنابي',           price: 80,  image: IMG_COCKTAIL, category: 'cocktails' },
+  { id: 106, name: 'Breezy Kiwi',       nameAr: 'بريزي كيوي',        descriptionAr: 'بريزي كيوي',             price: 70,  image: IMG_COCKTAIL, category: 'cocktails' },
+  { id: 107, name: 'White Ocean',       nameAr: 'وايت أوشن',         descriptionAr: 'وايت أوشن',              price: 75,  image: IMG_COCKTAIL, category: 'cocktails' },
+  { id: 108, name: 'Kamba',             nameAr: 'كامبا',             descriptionAr: 'كوكتيل كامبا',           price: 85,  image: IMG_COCKTAIL, category: 'cocktails' },
+  { id: 109, name: 'Paradise Passion',  nameAr: 'بارادايس باشن',     descriptionAr: 'كوكتيل بارادايس',        price: 70,  image: IMG_COCKTAIL, category: 'cocktails' },
+  { id: 110, name: 'Florida',           nameAr: 'فلوريدا',           descriptionAr: 'كوكتيل فلوريدا',         price: 85,  image: IMG_COCKTAIL, category: 'cocktails' },
+  { id: 111, name: 'Galaxy',            nameAr: 'جالاكسي',           descriptionAr: 'كوكتيل جالاكسي',         price: 90,  image: IMG_COCKTAIL, category: 'cocktails'  },
+  { id: 112, name: 'Heartache',         nameAr: 'عوار القلب',        descriptionAr: 'كوكتيل عوار القلب',      price: 90,  image: IMG_COCKTAIL, category: 'cocktails' },
+  { id: 113, name: 'Laguna Signature',  nameAr: 'لاجونا سجنتشر',     descriptionAr: 'كوكتيل لاجونا الخاص',    price: 100, image: IMG_COCKTAIL, category: 'cocktails'  },
+  { id: 114, name: 'Delci',             nameAr: 'ديلسي',             descriptionAr: 'كوكتيل ديلسي',           price: 90,  image: IMG_COCKTAIL, category: 'cocktails' },
 
   // ════════════════════════════════════════
   //  موهيتو
   // ════════════════════════════════════════
-  { id: 120, name: 'Sun Rise',          nameAr: 'موهيتو صن رايز',    descriptionAr: 'موهيتو صن رايز',       price: 60,  image: IMG_MOJITO,   category: 'mojito', popular: false },
-  { id: 121, name: 'Pina Cola',       nameAr: 'بينا كولا',       descriptionAr: 'بينا كولا',           price: 65,  image: IMG_MOJITO,   category: 'mojito', popular: false },
-  { id: 122, name: 'Blue Passion',      nameAr: 'بلو باشن',          descriptionAr: 'موهيتو بلو باشن',       price: 60,  image: IMG_MOJITO,   category: 'mojito', popular: false },
-  { id: 123, name: 'Scotch Mint',       nameAr: 'سكوتش منت',         descriptionAr: 'سكوتش منت',             price: 65,  image: IMG_MOJITO,   category: 'mojito', popular: false },
-  { id: 124, name: 'Sun Shine',         nameAr: 'موهيتو صن شاين',    descriptionAr: 'موهيتو صن شاين',        price: 60,  image: IMG_MOJITO,   category: 'mojito', popular: false },
-  { id: 125, name: 'Cherry Cola',     nameAr: 'شيري كولا',       descriptionAr: 'شيري كولا',           price: 65,  image: IMG_MOJITO,   category: 'mojito', popular: false },
-  { id: 126, name: 'Laguna Mojito',     nameAr: 'موهيتو لاجونا',     descriptionAr: 'موهيتو لاجونا الخاص',   price: 100, image: IMG_MOJITO,   category: 'mojito', popular: true  },
-  { id: 191, name: 'Red Bull Mojito',   nameAr: 'موهيتو ريدبول',    descriptionAr: 'موهيتو ريدبول',         price: 80,  image: IMG_MOJITO,   category: 'mojito', popular: false },
+  { id: 120, name: 'Sun Rise',          nameAr: 'موهيتو صن رايز',    descriptionAr: 'موهيتو صن رايز',       price: 60,  image: IMG_MOJITO,   category: 'mojito' },
+  { id: 121, name: 'Pina Cola',       nameAr: 'بينا كولا',       descriptionAr: 'بينا كولا',           price: 65,  image: IMG_MOJITO,   category: 'mojito' },
+  { id: 122, name: 'Blue Passion',      nameAr: 'بلو باشن',          descriptionAr: 'موهيتو بلو باشن',       price: 60,  image: IMG_MOJITO,   category: 'mojito' },
+  { id: 123, name: 'Scotch Mint',       nameAr: 'سكوتش منت',         descriptionAr: 'سكوتش منت',             price: 65,  image: IMG_MOJITO,   category: 'mojito' },
+  { id: 124, name: 'Sun Shine',         nameAr: 'موهيتو صن شاين',    descriptionAr: 'موهيتو صن شاين',        price: 60,  image: IMG_MOJITO,   category: 'mojito' },
+  { id: 125, name: 'Cherry Cola',     nameAr: 'شيري كولا',       descriptionAr: 'شيري كولا',           price: 65,  image: IMG_MOJITO,   category: 'mojito' },
+  { id: 126, name: 'Laguna Mojito',     nameAr: 'موهيتو لاجونا',     descriptionAr: 'موهيتو لاجونا الخاص',   price: 100, image: IMG_MOJITO,   category: 'mojito'  },
+  { id: 191, name: 'Red Bull Mojito',   nameAr: 'موهيتو ريدبول',    descriptionAr: 'موهيتو ريدبول',         price: 80,  image: IMG_MOJITO,   category: 'mojito' },
   // ════════════════════════════════════════
   //  ميلك شيك
   // ════════════════════════════════════════
-  { id: 130, name: 'Chocolate Shake',    nameAr: 'ميلك شيك شوكلت',   descriptionAr: 'ميلك شيك شوكولاتة',    price: 70,  image: IMG_SHAKE, category: 'milkshake', popular: false },
-  { id: 131, name: 'Peach Shake',        nameAr: 'ميلك شيك خوخ',     descriptionAr: 'ميلك شيك خوخ',        price: 75,  image: IMG_SHAKE, category: 'milkshake', popular: false },
-  { id: 132, name: 'Mix Berry Shake',    nameAr: 'ميلك شيك مكس بيري',descriptionAr: 'ميلك شيك التوت',      price: 85,  image: IMG_SHAKE, category: 'milkshake', popular: false },
-  { id: 133, name: 'Vanilla Shake',      nameAr: 'ميلك شيك فانيليا', descriptionAr: 'ميلك شيك فانيليا',    price: 70,  image: IMG_SHAKE, category: 'milkshake', popular: false },
-  { id: 134, name: 'Twinkies Shake',     nameAr: 'ميلك شيك توينكيز', descriptionAr: 'ميلك شيك توينكيز',   price: 80,  image: IMG_SHAKE, category: 'milkshake', popular: false },
-  { id: 135, name: 'White Choc Shake',   nameAr: 'ميلك شيك وايت شوكلت',descriptionAr: 'ميلك شيك شوكولاتة بيضاء',price: 80, image: IMG_SHAKE, category: 'milkshake', popular: false },
-  { id: 136, name: 'Caramel Shake',      nameAr: 'ميلك شيك كراميل',  descriptionAr: 'ميلك شيك كراميل',     price: 70,  image: IMG_SHAKE, category: 'milkshake', popular: false },
-  { id: 137, name: 'Mango Shake',        nameAr: 'ميلك شيك مانجا',   descriptionAr: 'ميلك شيك مانجا',      price: 75,  image: IMG_SHAKE, category: 'milkshake', popular: false },
-  { id: 138, name: 'Kit Kat Shake',      nameAr: 'ميلك شيك كيت كات', descriptionAr: 'ميلك شيك كيت كات',   price: 85,  image: IMG_SHAKE, category: 'milkshake', popular: false },
-  { id: 139, name: 'Strawberry Shake',   nameAr: 'ميلك شيك فراولة',  descriptionAr: 'ميلك شيك فراولة',     price: 70,  image: IMG_SHAKE, category: 'milkshake', popular: true  },
-  { id: 140, name: 'Hoho Shake',         nameAr: 'ميلك شيك هوهوز',   descriptionAr: 'ميلك شيك هوهوز',      price: 85,  image: IMG_SHAKE, category: 'milkshake', popular: false },
-  { id: 141, name: 'Nutella Shake',      nameAr: 'ميلك شيك نوتيلا',  descriptionAr: 'ميلك شيك نوتيلا',     price: 90,  image: IMG_SHAKE, category: 'milkshake', popular: true  },
-  { id: 142, name: 'Oreo Shake',         nameAr: 'ميلك شيك أوريو',   descriptionAr: 'ميلك شيك أوريو',      price: 90,  image: IMG_SHAKE, category: 'milkshake', popular: true  },
-  { id: 143, name: 'Laguna Shake',       nameAr: 'ميلك شيك لاجونا',   descriptionAr: 'ميلك شيك لاجونا مميز',  price: 100, image: IMG_SHAKE, category: 'milkshake', popular: true  },
-  { id: 144, name: 'Pistachio Shake',    nameAr: 'ميلك شيك بستاشيو',  descriptionAr: 'ميلك شيك بستاشيو',     price: 90,  image: IMG_SHAKE, category: 'milkshake', popular: false },
+  { id: 130, name: 'Chocolate Shake',    nameAr: 'ميلك شيك شوكلت',   descriptionAr: 'ميلك شيك شوكولاتة',    price: 70,  image: IMG_SHAKE, category: 'milkshake' },
+  { id: 131, name: 'Peach Shake',        nameAr: 'ميلك شيك خوخ',     descriptionAr: 'ميلك شيك خوخ',        price: 75,  image: IMG_SHAKE, category: 'milkshake' },
+  { id: 132, name: 'Mix Berry Shake',    nameAr: 'ميلك شيك مكس بيري',descriptionAr: 'ميلك شيك التوت',      price: 85,  image: IMG_SHAKE, category: 'milkshake' },
+  { id: 133, name: 'Vanilla Shake',      nameAr: 'ميلك شيك فانيليا', descriptionAr: 'ميلك شيك فانيليا',    price: 70,  image: IMG_SHAKE, category: 'milkshake' },
+  { id: 134, name: 'Twinkies Shake',     nameAr: 'ميلك شيك توينكيز', descriptionAr: 'ميلك شيك توينكيز',   price: 80,  image: IMG_SHAKE, category: 'milkshake' },
+  { id: 135, name: 'White Choc Shake',   nameAr: 'ميلك شيك وايت شوكلت',descriptionAr: 'ميلك شيك شوكولاتة بيضاء',price: 80, image: IMG_SHAKE, category: 'milkshake' },
+  { id: 136, name: 'Caramel Shake',      nameAr: 'ميلك شيك كراميل',  descriptionAr: 'ميلك شيك كراميل',     price: 70,  image: IMG_SHAKE, category: 'milkshake' },
+  { id: 137, name: 'Mango Shake',        nameAr: 'ميلك شيك مانجا',   descriptionAr: 'ميلك شيك مانجا',      price: 75,  image: IMG_SHAKE, category: 'milkshake' },
+  { id: 138, name: 'Kit Kat Shake',      nameAr: 'ميلك شيك كيت كات', descriptionAr: 'ميلك شيك كيت كات',   price: 85,  image: IMG_SHAKE, category: 'milkshake' },
+  { id: 139, name: 'Strawberry Shake',   nameAr: 'ميلك شيك فراولة',  descriptionAr: 'ميلك شيك فراولة',     price: 70,  image: IMG_SHAKE, category: 'milkshake'  },
+  { id: 140, name: 'Hoho Shake',         nameAr: 'ميلك شيك هوهوز',   descriptionAr: 'ميلك شيك هوهوز',      price: 85,  image: IMG_SHAKE, category: 'milkshake' },
+  { id: 141, name: 'Nutella Shake',      nameAr: 'ميلك شيك نوتيلا',  descriptionAr: 'ميلك شيك نوتيلا',     price: 90,  image: IMG_SHAKE, category: 'milkshake'  },
+  { id: 142, name: 'Oreo Shake',         nameAr: 'ميلك شيك أوريو',   descriptionAr: 'ميلك شيك أوريو',      price: 90,  image: IMG_SHAKE, category: 'milkshake'  },
+  { id: 143, name: 'Laguna Shake',       nameAr: 'ميلك شيك لاجونا',   descriptionAr: 'ميلك شيك لاجونا مميز',  price: 100, image: IMG_SHAKE, category: 'milkshake'  },
+  { id: 144, name: 'Pistachio Shake',    nameAr: 'ميلك شيك بستاشيو',  descriptionAr: 'ميلك شيك بستاشيو',     price: 90,  image: IMG_SHAKE, category: 'milkshake' },
 
   // ════════════════════════════════════════
   //  الزبادي
   // ════════════════════════════════════════
-  { id: 150, name: 'Mango Yogurt',       nameAr: 'زبادي مانجا',        descriptionAr: 'زبادي خلاط بالمانجا',    price: 55,  image: IMG_YOGURT,   category: 'yogurt', popular: false },
-  { id: 151, name: 'Strawberry Yogurt',  nameAr: 'زبادي فراولة',       descriptionAr: 'زبادي خلاط بالفراولة',   price: 55,  image: IMG_YOGURT,   category: 'yogurt', popular: false },
-  { id: 152, name: 'Pineapple Yogurt',   nameAr: 'زبادي أناناس',       descriptionAr: 'زبادي خلاط بالأناناس',   price: 55,  image: IMG_YOGURT,   category: 'yogurt', popular: false },
-  { id: 153, name: 'Peach Yogurt',       nameAr: 'زبادي خوخ',          descriptionAr: 'زبادي خلاط بالخوخ',      price: 60,  image: IMG_YOGURT,   category: 'yogurt', popular: false },
-  { id: 154, name: 'Blueberry Yogurt',   nameAr: 'زبادي بلو بيري',     descriptionAr: 'زبادي خلاط بالبلو بيري', price: 60,  image: IMG_YOGURT,   category: 'yogurt', popular: false },
-  { id: 155, name: 'Banana Yogurt',      nameAr: 'زبادي موز',          descriptionAr: 'زبادي خلاط بالموز',      price: 60,  image: IMG_YOGURT,   category: 'yogurt', popular: false },
-  { id: 156, name: 'Passion Yogurt',     nameAr: 'زبادي باشن فروت',    descriptionAr: 'زبادي باشن فروت',       price: 60,  image: IMG_YOGURT,   category: 'yogurt', popular: false },
-  { id: 157, name: 'Honey Nuts Yogurt',  nameAr: 'زبادي عسل مكسرات',   descriptionAr: 'زبادي بالعسل والمكسرات',price: 65,  image: IMG_YOGURT,   category: 'yogurt', popular: true  },
-  { id: 158, name: 'Laguna Yogurt',      nameAr: 'زبادي لاجونا',       descriptionAr: 'زبادي لاجونا الخاص',    price: 75,  image: IMG_YOGURT,   category: 'yogurt', popular: true  },
+  { id: 150, name: 'Mango Yogurt',       nameAr: 'زبادي مانجا',        descriptionAr: 'زبادي خلاط بالمانجا',    price: 55,  image: IMG_YOGURT,   category: 'yogurt' },
+  { id: 151, name: 'Strawberry Yogurt',  nameAr: 'زبادي فراولة',       descriptionAr: 'زبادي خلاط بالفراولة',   price: 55,  image: IMG_YOGURT,   category: 'yogurt' },
+  { id: 152, name: 'Pineapple Yogurt',   nameAr: 'زبادي أناناس',       descriptionAr: 'زبادي خلاط بالأناناس',   price: 55,  image: IMG_YOGURT,   category: 'yogurt' },
+  { id: 153, name: 'Peach Yogurt',       nameAr: 'زبادي خوخ',          descriptionAr: 'زبادي خلاط بالخوخ',      price: 60,  image: IMG_YOGURT,   category: 'yogurt' },
+  { id: 154, name: 'Blueberry Yogurt',   nameAr: 'زبادي بلو بيري',     descriptionAr: 'زبادي خلاط بالبلو بيري', price: 60,  image: IMG_YOGURT,   category: 'yogurt' },
+  { id: 155, name: 'Banana Yogurt',      nameAr: 'زبادي موز',          descriptionAr: 'زبادي خلاط بالموز',      price: 60,  image: IMG_YOGURT,   category: 'yogurt' },
+  { id: 156, name: 'Passion Yogurt',     nameAr: 'زبادي باشن فروت',    descriptionAr: 'زبادي باشن فروت',       price: 60,  image: IMG_YOGURT,   category: 'yogurt' },
+  { id: 157, name: 'Honey Nuts Yogurt',  nameAr: 'زبادي عسل مكسرات',   descriptionAr: 'زبادي بالعسل والمكسرات',price: 65,  image: IMG_YOGURT,   category: 'yogurt'  },
+  { id: 158, name: 'Laguna Yogurt',      nameAr: 'زبادي لاجونا',       descriptionAr: 'زبادي لاجونا الخاص',    price: 75,  image: IMG_YOGURT,   category: 'yogurt'  },
 
   // ════════════════════════════════════════
   //  كانز ومشروبات طاقة
   // ════════════════════════════════════════
-  { id: 160, name: 'Pepsi',             nameAr: 'بيبسي',            descriptionAr: 'بيبسي',               price: 30, image: IMG_CAN,      category: 'cans', popular: false },
-  { id: 161, name: 'Fanta',             nameAr: 'فانتا',            descriptionAr: 'فانتا',               price: 30, image: IMG_CAN,      category: 'cans', popular: false },
-  { id: 162, name: 'Vimto',             nameAr: 'فيروز',            descriptionAr: 'فيروز',               price: 35, image: IMG_CAN,      category: 'cans', popular: false },
-  { id: 163, name: 'Sprite',            nameAr: 'سبرايت',           descriptionAr: 'سبرايت',              price: 30, image: IMG_CAN,      category: 'cans', popular: false },
-  { id: 164, name: 'Twist',             nameAr: 'تويست',            descriptionAr: 'تويست',               price: 30, image: IMG_CAN,      category: 'cans', popular: false },
-  { id: 165, name: 'Mountain Dew',      nameAr: 'ماونتن ديو',       descriptionAr: 'ماونتن ديو',          price: 30, image: IMG_CAN,      category: 'cans', popular: false },
-  { id: 166, name: 'Pepsi Diet',        nameAr: 'بيبسي دايت',       descriptionAr: 'بيبسي دايت',          price: 30, image: IMG_CAN,      category: 'cans', popular: false },
-  { id: 167, name: '7UP',               nameAr: 'سفن أب',           descriptionAr: 'سفن أب',              price: 30, image: IMG_CAN,      category: 'cans', popular: false },
-  { id: 168, name: 'V Cola',            nameAr: 'في كولا',          descriptionAr: 'في كولا',             price: 35, image: IMG_CAN,      category: 'cans', popular: false },
-  { id: 169, name: 'Mirinda',           nameAr: 'ميرندا',           descriptionAr: 'ميرندا',              price: 30, image: IMG_CAN,      category: 'cans', popular: false },
-  { id: 170, name: 'Schweppes',         nameAr: 'شويبس',            descriptionAr: 'شويبس',               price: 30, image: IMG_CAN,      category: 'cans', popular: false },
-  { id: 171, name: 'Fiori',             nameAr: 'فيوري',            descriptionAr: 'فيوري',               price: 30, image: IMG_CAN,      category: 'cans', popular: false },
-  { id: 172, name: 'Birell',            nameAr: 'بيريل',            descriptionAr: 'بيريل',               price: 35, image: IMG_CAN,      category: 'cans', popular: false },
-  { id: 173, name: 'Red Bull',          nameAr: 'ريد بول',          descriptionAr: 'ريد بول',              price: 75, image: IMG_CAN,      category: 'cans', popular: false },
-  { id: 174, name: 'Monster',           nameAr: 'مونستر',           descriptionAr: 'مونستر',              price: 75, image: IMG_CAN,      category: 'cans', popular: false },
+  { id: 160, name: 'Pepsi',             nameAr: 'بيبسي',            descriptionAr: 'بيبسي',               price: 30, image: IMG_CAN,      category: 'cans' },
+  { id: 161, name: 'Fanta',             nameAr: 'فانتا',            descriptionAr: 'فانتا',               price: 30, image: IMG_CAN,      category: 'cans' },
+  { id: 162, name: 'Vimto',             nameAr: 'فيروز',            descriptionAr: 'فيروز',               price: 35, image: IMG_CAN,      category: 'cans' },
+  { id: 163, name: 'Sprite',            nameAr: 'سبرايت',           descriptionAr: 'سبرايت',              price: 30, image: IMG_CAN,      category: 'cans' },
+  { id: 164, name: 'Twist',             nameAr: 'تويست',            descriptionAr: 'تويست',               price: 30, image: IMG_CAN,      category: 'cans' },
+  { id: 165, name: 'Mountain Dew',      nameAr: 'ماونتن ديو',       descriptionAr: 'ماونتن ديو',          price: 30, image: IMG_CAN,      category: 'cans' },
+  { id: 166, name: 'Pepsi Diet',        nameAr: 'بيبسي دايت',       descriptionAr: 'بيبسي دايت',          price: 30, image: IMG_CAN,      category: 'cans' },
+  { id: 167, name: '7UP',               nameAr: 'سفن أب',           descriptionAr: 'سفن أب',              price: 30, image: IMG_CAN,      category: 'cans' },
+  { id: 168, name: 'V Cola',            nameAr: 'في كولا',          descriptionAr: 'في كولا',             price: 35, image: IMG_CAN,      category: 'cans' },
+  { id: 169, name: 'Mirinda',           nameAr: 'ميرندا',           descriptionAr: 'ميرندا',              price: 30, image: IMG_CAN,      category: 'cans' },
+  { id: 170, name: 'Schweppes',         nameAr: 'شويبس',            descriptionAr: 'شويبس',               price: 30, image: IMG_CAN,      category: 'cans' },
+  { id: 171, name: 'Fiori',             nameAr: 'فيوري',            descriptionAr: 'فيوري',               price: 30, image: IMG_CAN,      category: 'cans' },
+  { id: 172, name: 'Birell',            nameAr: 'بيريل',            descriptionAr: 'بيريل',               price: 35, image: IMG_CAN,      category: 'cans' },
+  { id: 173, name: 'Red Bull',          nameAr: 'ريد بول',          descriptionAr: 'ريد بول',              price: 75, image: IMG_CAN,      category: 'cans' },
+  { id: 174, name: 'Monster',           nameAr: 'مونستر',           descriptionAr: 'مونستر',              price: 75, image: IMG_CAN,      category: 'cans' },
 
   // ════════════════════════════════════════
   //  فشار
   // ════════════════════════════════════════
-  { id: 180, name: 'Popcorn Salt',      nameAr: 'فشار ملح',         descriptionAr: 'فشار مالح',           price: 20, image: IMG_POPCORN,  category: 'popcorn', popular: false },
-  { id: 181, name: 'Popcorn Ketchup',   nameAr: 'فشار كاتشب',       descriptionAr: 'فشار كاتشب',          price: 25, image: IMG_POPCORN,  category: 'popcorn', popular: false },
-  { id: 182, name: 'Popcorn Caramel',   nameAr: 'فشار كراميل',      descriptionAr: 'فشار كراميل',         price: 25, image: IMG_POPCORN,  category: 'popcorn', popular: true  },
-  { id: 183, name: 'Popcorn Cheese',    nameAr: 'فشار جبنة',        descriptionAr: 'فشار جبنة',           price: 25, image: IMG_POPCORN,  category: 'popcorn', popular: false },
-  { id: 184, name: 'Popcorn Spicy',     nameAr: 'فشار شطة',         descriptionAr: 'فشار حار',            price: 25, image: IMG_POPCORN,  category: 'popcorn', popular: false },
+  { id: 180, name: 'Popcorn Salt',      nameAr: 'فشار ملح',         descriptionAr: 'فشار مالح',           price: 20, image: IMG_POPCORN,  category: 'popcorn' },
+  { id: 181, name: 'Popcorn Ketchup',   nameAr: 'فشار كاتشب',       descriptionAr: 'فشار كاتشب',          price: 25, image: IMG_POPCORN,  category: 'popcorn' },
+  { id: 182, name: 'Popcorn Caramel',   nameAr: 'فشار كراميل',      descriptionAr: 'فشار كراميل',         price: 25, image: IMG_POPCORN,  category: 'popcorn'  },
+  { id: 183, name: 'Popcorn Cheese',    nameAr: 'فشار جبنة',        descriptionAr: 'فشار جبنة',           price: 25, image: IMG_POPCORN,  category: 'popcorn' },
+  { id: 184, name: 'Popcorn Spicy',     nameAr: 'فشار شطة',         descriptionAr: 'فشار حار',            price: 25, image: IMG_POPCORN,  category: 'popcorn' },
 ].map(item => ({
   ...item,
   image: localImage(item.nameAr) || item.image,
@@ -294,6 +294,7 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('hot');
   const [headerVisible, setHeaderVisible] = useState(true);
+  const [itemOrderCounts, setItemOrderCounts] = useState<Record<string, number>>({});
   const lastScrollY = useRef(0);
   const tableRef = useRef<HTMLDivElement>(null);
 
@@ -351,6 +352,26 @@ export default function App() {
     };
     document.addEventListener('mousedown', handler);
     return () => document.removeEventListener('mousedown', handler);
+  }, []);
+
+  useEffect(() => {
+    const fetchCounts = async () => {
+      const all = await getOrders();
+      const monthStart = new Date();
+      monthStart.setDate(1);
+      monthStart.setHours(0, 0, 0, 0);
+      const thisMonth = all.filter(o => o.timestamp >= monthStart.getTime());
+      const counts: Record<string, number> = {};
+      for (const order of thisMonth) {
+        for (const item of order.items) {
+          counts[item.nameAr] = (counts[item.nameAr] || 0) + item.quantity;
+        }
+      }
+      setItemOrderCounts(counts);
+    };
+    fetchCounts();
+    const interval = setInterval(fetchCounts, 10000);
+    return () => clearInterval(interval);
   }, []);
 
   const saveCart = (newCart: CartItem[]) => {
@@ -431,9 +452,7 @@ export default function App() {
   };
 
   const filteredItems = (category?: string) => {
-    let items = category
-      ? menuData.filter((item) => item.category === category)
-      : menuData;
+    let items = menuData;
 
     if (searchQuery) {
       items = items.filter(
@@ -441,9 +460,13 @@ export default function App() {
           item.nameAr.toLowerCase().includes(searchQuery.toLowerCase()) ||
           item.descriptionAr.toLowerCase().includes(searchQuery.toLowerCase())
       );
+    } else if (category) {
+      items = items.filter((item) => item.category === category);
     }
 
-    return items;
+    return items
+      .map(item => ({ ...item, orderCount: itemOrderCounts[item.nameAr] || 0 }))
+      .sort((a, b) => (b.orderCount || 0) - (a.orderCount || 0));
   };
 
   const categories = [
@@ -471,36 +494,36 @@ export default function App() {
           headerVisible ? 'translate-y-0' : '-translate-y-full'
         }`}
       >
-        <div className="container mx-auto px-4 md:px-6 py-3 md:py-4 flex flex-col items-center relative">
-          <img src={logoUrl} alt="Laguna Dubai" className="h-16 md:h-20 w-auto mb-1 md:mb-2 brightness-0 invert" />
-          <h1 className="text-xl md:text-2xl font-bold tracking-[0.15em] text-white" style={{ fontFamily: "'Playfair Display', serif" }}>LAGUNA DUBAI</h1>
-          <p className="text-[10px] md:text-xs text-white/50 tracking-[0.3em] mt-1">CAFÉ &bull; RESTAURANT</p>
+        <div className="container mx-auto px-4 md:px-6 py-4 md:py-5 flex flex-col items-center relative">
+          <img src={logoUrl} alt="Laguna Dubai" className="h-20 md:h-24 w-auto mb-2 brightness-0 invert" />
+          <div className="flex items-center gap-4 mt-1 w-full max-w-md">
+            {/* Table Number Button */}
+            <button
+              onClick={() => setTablePopupOpen(true)}
+              className="flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl px-3 py-2 transition-colors shrink-0"
+            >
+              <svg className="w-4 h-4 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+              <span className="text-lg font-bold text-amber-400 tabular-nums">{tableNumber.toString().padStart(2, '0')}</span>
+              <svg className="w-3 h-3 text-white/40" fill="none" viewBox="0 0 20 20"><path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M6 8l4 4 4-4"/></svg>
+            </button>
 
-          {/* Table Number Button */}
-          <button
-            onClick={() => setTablePopupOpen(true)}
-            className="mt-2 flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl px-4 py-1.5 transition-colors"
-          >
-            <span className="text-[10px] text-white/50 tracking-wider">TABLE</span>
-            <span className="text-lg font-bold text-amber-400 tabular-nums">{tableNumber.toString().padStart(2, '0')}</span>
-            <svg className="w-3.5 h-3.5 text-white/40" fill="none" viewBox="0 0 20 20"><path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M6 8l4 4 4-4"/></svg>
-          </button>
-
-          <div className="w-full max-w-md mx-auto mt-3 md:mt-4 relative">
-            <Search className="absolute right-4 top-1/2 -translate-y-1/2 h-4 w-4 text-white/40" />
-            <Input
-              type="text"
-              placeholder="ابحث في المنيو..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pr-10 text-right h-9 md:h-10 text-sm bg-white/10 border-white/20 text-white placeholder:text-white/40 focus:border-amber-400/40 focus:ring-amber-400/20 rounded-full shadow-sm"
-            />
+            {/* Search */}
+            <div className="relative flex-1">
+              <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/40" />
+              <Input
+                type="text"
+                placeholder="ابحث في القائمة..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pr-9 text-right h-10 text-sm bg-white/10 border-white/20 text-white placeholder:text-white/40 focus:border-amber-400/40 focus:ring-amber-400/20 rounded-full shadow-sm"
+              />
+            </div>
           </div>
         </div>
       </header>
 
       {/* Category Navigation */}
-      <div className={`sticky z-30 bg-white border-b border-stone-100 shadow-sm ${headerVisible ? 'top-[76px] md:top-[88px]' : 'top-0'}`}>
+      <div className={`sticky z-30 bg-white border-b border-stone-100 shadow-sm ${headerVisible ? 'top-[160px] md:top-[172px]' : 'top-0'}`}>
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex gap-0 overflow-x-auto scrollbar-hide -mb-px">
             {categories.map((cat) => (
