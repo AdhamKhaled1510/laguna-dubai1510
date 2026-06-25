@@ -6,7 +6,7 @@ import BaristaPage from "./app/BaristaPage";
 import "./styles/index.css";
 
 createRoot(document.getElementById("root")!).render(
-  <BrowserRouter>
+  <BrowserRouter basename="/laguna-dubai1510">
     <Routes>
       <Route path="/" element={<StaffLogin />} />
       <Route path="/waiter" element={<WaiterPage />} />
