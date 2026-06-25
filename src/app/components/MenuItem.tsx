@@ -26,11 +26,11 @@ interface MenuItemProps {
 export function MenuItem({ item, quantity, onAdd, onRemove }: MenuItemProps) {
   return (
     <Card className="overflow-hidden bg-white border-stone-100 hover:border-stone-200 hover:shadow-xl hover:shadow-stone-900/5 transition-all duration-300 text-stone-800 rounded-xl">
-      <div className="relative h-44 overflow-hidden">
+      <div className="relative h-64 overflow-hidden bg-stone-100">
         <ImageWithFallback
           src={item.image}
           alt={item.nameAr}
-          className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+          className="w-full h-full object-contain p-2 transition-transform duration-500 hover:scale-105"
         />
         {item.popular && (
           <Badge className="absolute top-3 right-3 bg-stone-800 text-white text-xs font-medium shadow-md px-3 py-1 rounded-full">

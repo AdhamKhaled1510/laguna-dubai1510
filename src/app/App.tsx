@@ -1,8 +1,7 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Search } from 'lucide-react';
 import { MenuItem, MenuItemType } from './components/MenuItem';
 import { CartSheet } from './components/CartSheet';
-
 import { Input } from './components/ui/input';
 import { toast } from 'sonner';
 import { Toaster } from './components/ui/sonner';
@@ -290,6 +289,22 @@ export default function App() {
   const [cart, setCart] = useState<CartItem[]>(loadCart);
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState('all');
+  const [headerVisible, setHeaderVisible] = useState(true);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > lastScrollY.current && currentScrollY > 80) {
+        setHeaderVisible(false);
+      } else {
+        setHeaderVisible(true);
+      }
+      lastScrollY.current = currentScrollY;
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const saveCart = (newCart: CartItem[]) => {
     try {
@@ -397,26 +412,32 @@ export default function App() {
       <Toaster position="top-center" richColors />
 
       {/* Header */}
-      <header className="bg-white/95 backdrop-blur-md sticky top-0 z-40 border-b border-stone-200/60 shadow-sm">
+      <header
+        className={`bg-[#0A2242] sticky top-0 z-40 border-b border-white/10 shadow-lg transition-transform duration-300 ${
+          headerVisible ? 'translate-y-0' : '-translate-y-full'
+        }`}
+      >
         <div className="container mx-auto px-4 py-4 flex flex-col items-center">
-          <img src={logoUrl} alt="Laguna Dubai" className="h-20 w-auto mb-2" />
-          <h1 className="text-2xl font-bold tracking-[0.15em] text-stone-800" style={{ fontFamily: "'Playfair Display', serif" }}>LAGUNA DUBAI</h1>
-          <p className="text-xs text-stone-400 tracking-[0.3em] mt-1">CAFÉ &bull; RESTAURANT</p>
+          <img src={logoUrl} alt="Laguna Dubai" className="h-20 w-auto mb-2 brightness-0 invert" />
+          <h1 className="text-2xl font-bold tracking-[0.15em] text-white" style={{ fontFamily: "'Playfair Display', serif" }}>LAGUNA DUBAI</h1>
+          <p className="text-xs text-white/50 tracking-[0.3em] mt-1">CAFÉ &bull; RESTAURANT</p>
           <div className="w-full max-w-md mx-auto mt-4 relative">
-            <Search className="absolute right-4 top-1/2 -translate-y-1/2 h-4 w-4 text-stone-400" />
+            <Search className="absolute right-4 top-1/2 -translate-y-1/2 h-4 w-4 text-white/40" />
             <Input
               type="text"
               placeholder="ابحث في المنيو..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pr-10 text-right h-10 text-sm bg-stone-50 border-stone-200 text-stone-700 placeholder:text-stone-400 focus:border-amber-700 focus:ring-amber-700/20 rounded-full shadow-sm"
+              className="pr-10 text-right h-10 text-sm bg-white/10 border-white/20 text-white placeholder:text-white/40 focus:border-white/30 focus:ring-white/20 rounded-full shadow-sm"
             />
           </div>
         </div>
       </header>
 
       {/* Category Navigation */}
-      <div className="sticky top-[132px] z-30 bg-[#f5f0eb]/90 backdrop-blur-md border-b border-stone-200/40">
+      <div className="sticky z-30 bg-[#f5f0eb]/90 backdrop-blur-md border-b border-stone-200/40"
+        style={{ top: headerVisible ? '132px' : '0' }}
+      >
         <div className="container mx-auto px-4 py-3 overflow-x-auto scrollbar-hide">
           <div className="flex gap-2 w-max mx-auto">
             {categories.map((cat) => (
