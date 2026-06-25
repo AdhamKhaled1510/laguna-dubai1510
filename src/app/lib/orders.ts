@@ -13,25 +13,36 @@ export interface Order {
   status: 'pending' | 'completed';
 }
 
-const STORAGE_KEY = 'laguna-orders';
+const DB_URL = 'https://laguna-dubai-default-rtdb.firebaseio.com/orders';
 
-export function getOrders(): Order[] {
-  try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-  } catch {
-    return [];
-  }
+async function api(method: string, body?: unknown): Promise<any> {
+  const res = await fetch(`${DB_URL}.json`, {
+    method,
+    headers: body ? { 'Content-Type': 'application/json' } : undefined,
+    body: body ? JSON.stringify(body) : undefined,
+  });
+  return res.json();
 }
 
-export function saveOrder(order: Order): void {
-  const orders = getOrders();
-  orders.push(order);
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(orders));
+async function apiId(id: string, method: string, body?: unknown): Promise<any> {
+  const res = await fetch(`${DB_URL}/${id}.json`, {
+    method,
+    headers: body ? { 'Content-Type': 'application/json' } : undefined,
+    body: body ? JSON.stringify(body) : undefined,
+  });
+  return res.json();
 }
 
-export function completeOrder(orderId: string): void {
-  const orders = getOrders().map(o =>
-    o.id === orderId ? { ...o, status: 'completed' as const } : o
-  );
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(orders));
+export async function getOrders(): Promise<Order[]> {
+  const data = await api('GET');
+  if (!data) return [];
+  return Object.entries(data).map(([key, val]: [string, any]) => ({ ...val, id: key }));
+}
+
+export async function saveOrder(order: Omit<Order, 'id'>): Promise<void> {
+  await api('POST', order);
+}
+
+export async function completeOrder(orderId: string): Promise<void> {
+  await apiId(orderId, 'PATCH', { status: 'completed' });
 }

@@ -7,23 +7,19 @@ export default function BaristaPage() {
   const navigate = useNavigate();
   const [orders, setOrders] = useState<Order[]>([]);
 
-  const refresh = useCallback(() => {
-    setOrders(getOrders().filter(o => o.status === 'pending'));
+  const refresh = useCallback(async () => {
+    const all = await getOrders();
+    setOrders(all.filter(o => o.status === 'pending'));
   }, []);
 
   useEffect(() => {
     refresh();
-    const handle = () => refresh();
-    window.addEventListener('storage', handle);
-    const interval = setInterval(refresh, 2000);
-    return () => {
-      window.removeEventListener('storage', handle);
-      clearInterval(interval);
-    };
+    const interval = setInterval(refresh, 3000);
+    return () => clearInterval(interval);
   }, [refresh]);
 
-  const handleComplete = (id: string) => {
-    completeOrder(id);
+  const handleComplete = async (id: string) => {
+    await completeOrder(id);
     refresh();
   };
 
@@ -34,7 +30,6 @@ export default function BaristaPage() {
 
   return (
     <div className="min-h-screen bg-[#f5f0eb]" dir="rtl">
-      {/* Header */}
       <header className="bg-gradient-to-b from-[#0A2242] to-[#0d2d52] text-white px-4 py-3 sticky top-0 z-40">
         <div className="container mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -55,7 +50,6 @@ export default function BaristaPage() {
         </div>
       </header>
 
-      {/* Orders */}
       <main className="container mx-auto px-3 py-4 max-w-3xl">
         {orders.length === 0 ? (
           <div className="text-center py-20">
@@ -69,9 +63,8 @@ export default function BaristaPage() {
           </div>
         ) : (
           <div className="space-y-4">
-            {orders.map(order => (
+            {orders.sort((a, b) => b.timestamp - a.timestamp).map(order => (
               <div key={order.id} className="bg-white border border-stone-100 rounded-xl shadow-sm overflow-hidden">
-                {/* Order Header */}
                 <div className="bg-stone-800 text-white px-4 py-3 flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <span className="text-lg font-bold">ترابيزة {order.tableNumber}</span>
@@ -79,10 +72,8 @@ export default function BaristaPage() {
                       {formatTime(order.timestamp)}
                     </span>
                   </div>
-                  <span className="text-xs text-white/60">#</span>
                 </div>
 
-                {/* Order Items */}
                 <div className="px-4 py-3">
                   {order.items.map((item, idx) => (
                     <div key={idx} className="flex items-center justify-between py-2 border-b border-stone-50 last:border-0">
@@ -97,7 +88,6 @@ export default function BaristaPage() {
                   ))}
                 </div>
 
-                {/* Order Footer */}
                 <div className="bg-stone-50 px-4 py-3 flex items-center justify-between">
                   <span className="text-sm font-bold text-stone-800">
                     الإجمالي: {order.totalPrice} ج.م

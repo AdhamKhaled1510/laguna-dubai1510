@@ -364,20 +364,16 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     const totalPrice = cart.reduce((sum, item) => sum + item.item.price * item.quantity, 0);
     const orderItems = cart.map(c => ({ nameAr: c.item.nameAr, quantity: c.quantity, price: c.item.price }));
-    saveOrder({
-      id: Date.now().toString(),
+    await saveOrder({
       tableNumber,
       items: orderItems,
       totalPrice,
       timestamp: Date.now(),
       status: 'pending',
     });
-    const orderSummary = orderItems.map(i => `• ${i.nameAr} (${i.quantity}x)`).join('\n');
-    const msg = `ترابيزة ${tableNumber}\n\n${orderSummary}\n\nالإجمالي: ${totalPrice} ج.م`;
-    window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
     setCart([]);
     saveCart([]);
     toast.success('تم إرسال الطلب إلى الباريستا');
