@@ -13,7 +13,7 @@ export interface Order {
   status: 'pending' | 'completed';
 }
 
-const DB_URL = 'https://laguna-dubai-default-rtdb.firebaseio.com/orders';
+const DB_URL = 'https://laguna-dubai-default-rtdb.europe-west1.firebasedatabase.app/orders';
 
 async function api(method: string, body?: unknown): Promise<any> {
   const res = await fetch(`${DB_URL}.json`, {
