@@ -292,11 +292,13 @@ export default function App() {
   const [completedOpen, setCompletedOpen] = useState(false);
   const [completedOrders, setCompletedOrders] = useState<Order[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [searchOpen, setSearchOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState('hot');
   const [headerVisible, setHeaderVisible] = useState(true);
   const [itemOrderCounts, setItemOrderCounts] = useState<Record<string, number>>({});
   const lastScrollY = useRef(0);
   const tableRef = useRef<HTMLDivElement>(null);
+  const searchRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -348,6 +350,9 @@ export default function App() {
     const handler = (e: MouseEvent) => {
       if (tableRef.current && !tableRef.current.contains(e.target as Node)) {
         setTablePopupOpen(false);
+      }
+      if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
+        setSearchOpen(false);
       }
     };
     document.addEventListener('mousedown', handler);
@@ -494,36 +499,75 @@ export default function App() {
           headerVisible ? 'translate-y-0' : '-translate-y-full'
         }`}
       >
-        <div className="container mx-auto px-4 md:px-6 py-4 md:py-5 flex flex-col items-center relative">
-          <img src={logoUrl} alt="Laguna Dubai" className="h-20 md:h-24 w-auto mb-2 brightness-0 invert" />
-          <div className="flex items-center gap-4 mt-1 w-full max-w-md">
-            {/* Table Number Button */}
-            <button
-              onClick={() => setTablePopupOpen(true)}
-              className="flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl px-3 py-2 transition-colors shrink-0"
-            >
-              <svg className="w-4 h-4 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
-              <span className="text-lg font-bold text-amber-400 tabular-nums">{tableNumber.toString().padStart(2, '0')}</span>
-              <svg className="w-3 h-3 text-white/40" fill="none" viewBox="0 0 20 20"><path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M6 8l4 4 4-4"/></svg>
-            </button>
+        <div className="container mx-auto px-4 md:px-6 py-4 flex flex-col gap-3">
+          {/* Top row: Logo+Name (left) · Search button (right) */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <img src={logoUrl} alt="Laguna Dubai" className="h-10 md:h-12 w-auto brightness-0 invert" />
+              <div>
+                <h1 className="text-lg md:text-xl font-bold tracking-wide text-white leading-tight" style={{ fontFamily: "'Playfair Display', serif" }}>LAGUNA DUBAI</h1>
+                <p className="text-[9px] md:text-[10px] text-white/40 tracking-[0.2em]">CAFÉ &bull; RESTAURANT</p>
+              </div>
+            </div>
 
-            {/* Search */}
-            <div className="relative flex-1">
-              <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-white/40" />
-              <Input
-                type="text"
-                placeholder="ابحث في القائمة..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pr-9 text-right h-10 text-sm bg-white/10 border-white/20 text-white placeholder:text-white/40 focus:border-amber-400/40 focus:ring-amber-400/20 rounded-full shadow-sm"
-              />
+            {/* Search Icon Button + Floating Box */}
+            <div className="relative" ref={searchRef}>
+              <button
+                onClick={() => setSearchOpen(!searchOpen)}
+                className="w-10 h-10 flex items-center justify-center rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 transition-colors"
+              >
+                <Search className="h-4 w-4 text-white/60" />
+              </button>
+
+              {searchOpen && (
+                <>
+                  <div className="fixed inset-0 z-30" onClick={() => setSearchOpen(false)} />
+                  <div className="absolute left-0 md:left-auto md:right-0 top-12 z-40 w-[280px] md:w-80 bg-white rounded-2xl shadow-2xl border border-stone-100 p-3" style={{animation: 'fadeIn 0.15s ease-out'}}>
+                    <div className="relative">
+                      <Search className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-stone-300" />
+                      <Input
+                        type="text"
+                        placeholder="ابحث في القائمة..."
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        autoFocus
+                        className="pr-9 text-right h-10 text-sm bg-stone-50 border-stone-200 text-stone-800 placeholder:text-stone-400 focus:border-amber-400/60 focus:ring-amber-400/20 rounded-xl"
+                      />
+                      {searchQuery && (
+                        <button
+                          onClick={() => setSearchQuery('')}
+                          className="absolute left-2 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center rounded-full bg-stone-200 hover:bg-stone-300 text-stone-500 text-xs transition-colors"
+                        >
+                          ✕
+                        </button>
+                      )}
+                    </div>
+                    {searchQuery && (
+                      <p className="text-xs text-stone-400 mt-2 text-right">
+                        يتم البحث في جميع الأقسام
+                      </p>
+                    )}
+                  </div>
+                </>
+              )}
             </div>
           </div>
+
+          {/* Bottom row: Table number */}
+          <button
+            onClick={() => setTablePopupOpen(true)}
+            className="self-start flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl px-4 py-2 transition-colors"
+          >
+            <svg className="w-4 h-4 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+            <span className="text-sm text-white/60">TABLE</span>
+            <span className="text-lg font-bold text-amber-400 tabular-nums">{tableNumber.toString().padStart(2, '0')}</span>
+            <svg className="w-3 h-3 text-white/40" fill="none" viewBox="0 0 20 20"><path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M6 8l4 4 4-4"/></svg>
+          </button>
         </div>
       </header>
 
       {/* Category Navigation */}
-      <div className={`sticky z-30 bg-white border-b border-stone-100 shadow-sm ${headerVisible ? 'top-[160px] md:top-[172px]' : 'top-0'}`}>
+      <div className={`sticky z-30 bg-white border-b border-stone-100 shadow-sm ${headerVisible ? 'top-[124px] md:top-[136px]' : 'top-0'}`}>
         <div className="container mx-auto px-4 md:px-6">
           <div className="flex gap-0 overflow-x-auto scrollbar-hide -mb-px">
             {categories.map((cat) => (
