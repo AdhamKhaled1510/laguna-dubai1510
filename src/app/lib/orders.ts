@@ -157,6 +157,11 @@ export async function clearAllDailyReports(): Promise<void> {
   await reportsApi('DELETE');
 }
 
+export async function deleteDailyReport(date: string): Promise<void> {
+  const res = await fetch(`${REPORTS_URL}/${date}.json`, { method: 'DELETE' });
+  if (!res.ok) throw new Error('Failed to delete report');
+}
+
 // ── Passwords ────────────────────────────────────────────
 export async function getPassword(role: 'waiter' | 'barista' | 'reports' | 'invoices'): Promise<string> {
   try {
