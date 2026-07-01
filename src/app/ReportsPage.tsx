@@ -10,6 +10,17 @@ type DashPeriod = 'day' | 'week' | 'month';
 
 export default function ReportsPage() {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    try {
+      const auth = JSON.parse(localStorage.getItem('laguna-auth') || '{}');
+      if (auth.role !== 'reports' || Date.now() - auth.at > 14400000) {
+        localStorage.removeItem('laguna-auth');
+        navigate('/');
+      }
+    } catch { navigate('/'); }
+  }, [navigate]);
+
   const [orders, setOrders] = useState<Order[]>([]);
   const [savedReports, setSavedReports] = useState<DailyReport[]>([]);
   const [viewMode, setViewMode] = useState<ViewMode>('today');

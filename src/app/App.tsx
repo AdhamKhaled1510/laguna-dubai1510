@@ -26,50 +26,27 @@ function localImage(nameAr: string): string {
   return _menuImageMap[nameAr] || '';
 }
 
-// ── Fallback images (used when local image is not available) ─────────────
-// Hot drinks
-const IMG_TURKISH   = 'https://images.unsplash.com/photo-1757079649052-a24c6ab32c64?w=800&q=80';
-const IMG_TEA       = 'https://images.unsplash.com/photo-1769791650175-6858ef4780bb?w=800&q=80';
-const IMG_HOT_CHOC  = 'https://images.unsplash.com/photo-1720664282854-6081564f7e88?w=800&q=80';
-
-// Espresso-based
-const IMG_ESPRESSO  = 'https://images.unsplash.com/photo-1775512825412-6a94a01b99ef?w=800&q=80';
-const IMG_CAPPUCCINO= 'https://images.unsplash.com/photo-1720214931419-7cb11ee42c59?w=800&q=80';
-const IMG_LATTE     = 'https://images.unsplash.com/photo-1762402519375-a29d7971a761?w=800&q=80';
-const IMG_MOCHA     = 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=800&q=80';
-
-// Iced drinks
-const IMG_ICED      = 'https://images.unsplash.com/photo-1549652127-2e5e59e86a7a?w=800&q=80';
-const IMG_ICED_COFFEE='https://images.unsplash.com/photo-1759259639354-830bc3120807?w=800&q=80';
-const IMG_COLD2     = 'https://images.unsplash.com/photo-1642647391072-6a2416f048e5?w=800&q=80';
-
-// Matcha
-const IMG_MATCHA    = 'https://images.unsplash.com/photo-1515823064-d6e0c04616a7?w=800&q=80';
-const IMG_MATCHA2   = 'https://images.unsplash.com/photo-1717398804885-a6c22b3e5c2f?w=800&q=80';
-
-// Frappe
-const IMG_FRAPPE    = 'https://images.unsplash.com/photo-1526909445923-d35b52b98c22?w=800&q=80';
-const IMG_FRAPPE2   = 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=800&q=80';
-
-// Milkshake & smoothie
-const IMG_SHAKE     = 'https://images.unsplash.com/photo-1553787499-6f9133860278?w=800&q=80';
-const IMG_SMOOTHIE  = 'https://images.unsplash.com/photo-1622597467821-df79dcb4f94d?w=800&q=80';
-
-// Juice
-const IMG_JUICE     = 'https://images.unsplash.com/photo-1600271886742-f049cd451bba?w=800&q=80';
-const IMG_JUICE2    = 'https://images.unsplash.com/photo-1603569283847-aa295f0d016a?w=800&q=80';
-const IMG_LEMON     = 'https://images.unsplash.com/photo-1575596510825-f748919a2bf7?w=800&q=80';
-
-// Cocktails & mojito
-const IMG_COCKTAIL  = 'https://images.unsplash.com/photo-1749314374163-185677265d63?w=800&q=80';
-const IMG_MOJITO    = 'https://images.unsplash.com/photo-1507281549113-040fcfef650e?w=800&q=80';
-
-// Other
-const IMG_YOGURT    = 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=800&q=80';
-const IMG_CAN       = 'https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=800&q=80';
-const IMG_POPCORN   = 'https://images.unsplash.com/photo-1578849278619-e73505e9610f?w=800&q=80';
+// ── Fallback images (SVG data URIs, never breaks) ─────────
+const FALLBACK = (color: string) => `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300"><rect width="400" height="300" fill="${color}"/><text x="200" y="150" text-anchor="middle" fill="white" font-size="20" font-family="Arial">${color}</text></svg>`)}`;
+const IMG_HOT     = FALLBACK('#8B4513');
+const IMG_COLD    = FALLBACK('#4682B4');
+const IMG_GREEN   = FALLBACK('#2E8B57');
+const IMG_PINK    = FALLBACK('#DB7093');
+const IMG_PURPLE  = FALLBACK('#9370DB');
+const IMG_ORANGE  = FALLBACK('#FF8C00');
+const IMG_GRAY    = FALLBACK('#708090');
 
 const WA_NUMBER = '201234567890';
+
+const IMG_TURKISH=IMG_HOT, IMG_TEA=IMG_HOT, IMG_HOT_CHOC=IMG_HOT,
+  IMG_ESPRESSO=IMG_HOT, IMG_CAPPUCCINO=IMG_HOT, IMG_LATTE=IMG_HOT, IMG_MOCHA=IMG_HOT,
+  IMG_ICED=IMG_COLD, IMG_ICED_COFFEE=IMG_COLD, IMG_COLD2=IMG_COLD,
+  IMG_MATCHA=IMG_GREEN, IMG_MATCHA2=IMG_GREEN,
+  IMG_FRAPPE=IMG_PINK, IMG_FRAPPE2=IMG_PINK,
+  IMG_SHAKE=IMG_PURPLE, IMG_SMOOTHIE=IMG_PURPLE,
+  IMG_JUICE=IMG_ORANGE, IMG_JUICE2=IMG_ORANGE, IMG_LEMON=IMG_ORANGE,
+  IMG_COCKTAIL=IMG_PINK, IMG_MOJITO=IMG_GREEN,
+  IMG_YOGURT=IMG_PURPLE, IMG_CAN=IMG_GRAY, IMG_POPCORN=IMG_ORANGE;
 
 const menuData: MenuItemType[] = [
   // ════════════════════════════════════════
@@ -289,7 +266,10 @@ function loadCart(): CartItem[] {
 export default function App() {
   const [searchParams] = useSearchParams();
   const [cart, setCart] = useState<CartItem[]>(loadCart);
-  const [tableNumber, setTableNumber] = useState(Number(searchParams.get('table')) || 1);
+  const [tableNumber, setTableNumber] = useState(() => {
+    const t = Number(searchParams.get('table'));
+    return t >= 1 && t <= 20 ? t : 1;
+  });
   const [tablePopupOpen, setTablePopupOpen] = useState(false);
   const [completedOpen, setCompletedOpen] = useState(false);
   const [completedOrders, setCompletedOrders] = useState<Order[]>([]);
@@ -438,19 +418,28 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const [checkingOut, setCheckingOut] = useState(false);
+
   const handleCheckout = async () => {
-    const totalPrice = cart.reduce((sum, item) => sum + item.item.price * item.quantity, 0);
-    const orderItems = cart.map(c => ({ nameAr: c.item.nameAr, quantity: c.quantity, price: c.item.price }));
-    await saveOrder({
-      tableNumber,
-      items: orderItems,
-      totalPrice,
-      timestamp: Date.now(),
-      status: 'pending',
-    });
-    setCart([]);
-    saveCart([]);
-    toast.success('تم إرسال الطلب إلى الباريستا');
+    if (checkingOut) return;
+    setCheckingOut(true);
+    try {
+      const totalPrice = cart.reduce((sum, item) => sum + item.item.price * item.quantity, 0);
+      const orderItems = cart.map(c => ({ nameAr: c.item.nameAr, quantity: c.quantity, price: c.item.price }));
+      await saveOrder({
+        tableNumber,
+        items: orderItems,
+        totalPrice,
+        timestamp: Date.now(),
+        status: 'pending',
+      });
+      setCart([]);
+      saveCart([]);
+      toast.success('تم إرسال الطلب إلى الباريستا');
+    } catch {
+      toast.error('فشل إرسال الطلب');
+    }
+    setCheckingOut(false);
   };
 
   const getItemQuantity = (itemId: number) => {
@@ -471,8 +460,13 @@ export default function App() {
       items = items.filter((item) => item.category === category);
     }
 
+    const sorted = Object.entries(itemOrderCounts)
+      .sort(([, a], [, b]) => b - a)
+      .slice(0, 3)
+      .map(([name]) => name);
+    const topSet = new Set(sorted);
     return items
-      .map(item => ({ ...item, orderCount: itemOrderCounts[item.nameAr] || 0 }))
+      .map(item => ({ ...item, orderCount: itemOrderCounts[item.nameAr] || 0, isTopDrink: topSet.has(item.nameAr) }))
       .sort((a, b) => (b.orderCount || 0) - (a.orderCount || 0));
   };
 

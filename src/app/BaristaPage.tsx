@@ -7,6 +7,16 @@ export default function BaristaPage() {
   const navigate = useNavigate();
   const [orders, setOrders] = useState<Order[]>([]);
 
+  useEffect(() => {
+    try {
+      const auth = JSON.parse(localStorage.getItem('laguna-auth') || '{}');
+      if (auth.role !== 'barista' || Date.now() - auth.at > 14400000) {
+        localStorage.removeItem('laguna-auth');
+        navigate('/');
+      }
+    } catch { navigate('/'); }
+  }, [navigate]);
+
   const refresh = useCallback(async () => {
     const all = await getOrders();
     setOrders(all.filter(o => o.status === 'pending'));
@@ -19,8 +29,9 @@ export default function BaristaPage() {
   }, [refresh]);
 
   const handleComplete = async (order: Order) => {
+    const invoice = await createInvoice(order);
+    if (!invoice) { alert('فشل إنشاء الفاتورة، حاول مرة أخرى'); return; }
     await completeOrder(order.id);
-    await createInvoice(order);
     await sendNotification(order.tableNumber);
     refresh();
   };

@@ -6,6 +6,17 @@ import logoUrl from '@/assets/logo.png';
 
 export default function InvoicesPage() {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    try {
+      const auth = JSON.parse(localStorage.getItem('laguna-auth') || '{}');
+      if (auth.role !== 'invoices' || Date.now() - auth.at > 14400000) {
+        localStorage.removeItem('laguna-auth');
+        navigate('/');
+      }
+    } catch { navigate('/'); }
+  }, [navigate]);
+
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState<'all' | 'paid' | 'returned' | 'partial_return'>('all');
@@ -110,11 +121,11 @@ export default function InvoicesPage() {
   };
 
   const handlePartialReturn = async (inv: Invoice) => {
-    const items = inv.items.map(i => `${i.nameAr} (${i.quantity})`).join(', ');
-    const input = prompt(`اختر الأصناف للمرتجع (مثال: ${inv.items[0]?.nameAr || ''}):\nالأصناف المتاحة: ${items}`);
+    const input = prompt(`اختر الأصناف للمرتجع (مثال: ${inv.items[0]?.nameAr || ''}):\nالأصناف المتاحة:\n${inv.items.map(i => `${i.nameAr} (${i.quantity})`).join('\n')}`);
     if (!input) return;
+    const inputNames = input.split(/[,\n]/).map(s => s.trim()).filter(Boolean);
     const returnedItems = inv.items
-      .filter(i => input.includes(i.nameAr))
+      .filter(i => inputNames.some(n => n === i.nameAr))
       .map(i => ({ nameAr: i.nameAr, quantity: i.quantity }));
     if (returnedItems.length === 0) {
       alert('لم يتم العثور على الأصناف المحددة');
@@ -280,6 +291,18 @@ export default function InvoicesPage() {
                           مرتجع كلي
                         </button>
                       </>
+                    )}
+                    {(inv.status === 'returned' || inv.status === 'partial_return') && (
+                      <button
+                        onClick={async () => {
+                          if (!window.confirm('إلغاء المرتجع وإعادة الفاتورة كمدفوعة؟')) return;
+                          await updateInvoiceStatus(inv.id, 'paid');
+                          setInvoices(prev => prev.map(i => i.id === inv.id ? { ...i, status: 'paid', returnedItems: undefined } : i));
+                        }}
+                        className="px-3 py-1.5 text-xs font-medium text-emerald-600 bg-emerald-50 hover:bg-emerald-100 rounded-lg transition-colors"
+                      >
+                        إلغاء المرتجع
+                      </button>
                     )}
                     {inv.returnedItems && inv.returnedItems.length > 0 && (
                       <span className="text-xs text-stone-400">

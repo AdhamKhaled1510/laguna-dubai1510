@@ -64,6 +64,7 @@ export default function StaffLogin() {
       const stored = await getPassword(passwordModal!.role as any);
       const expected = stored || DEFAULT_PASSWORDS[passwordModal!.role] || '1234';
       if (password === expected) {
+        localStorage.setItem('laguna-auth', JSON.stringify({ role: passwordModal!.role, path: passwordModal!.path, at: Date.now() }));
         setPasswordModal(null);
         navigate(passwordModal!.path);
       } else {

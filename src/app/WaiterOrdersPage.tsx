@@ -1,13 +1,24 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router';
 import logoUrl from '@/assets/logo.png';
-import { getOrders, Order } from './lib/orders';
+import { getOrders, Order, clearNotification, getNotifications } from './lib/orders';
 import { ArrowLeft, Bell, Clock, CheckCircle } from 'lucide-react';
 
 export default function WaiterOrdersPage() {
   const navigate = useNavigate();
   const [completedOrders, setCompletedOrders] = useState<Order[]>([]);
   const [showNewBadge, setShowNewBadge] = useState(false);
+  const [newCount, setNewCount] = useState(0);
+
+  useEffect(() => {
+    try {
+      const auth = JSON.parse(localStorage.getItem('laguna-auth') || '{}');
+      if (auth.role !== 'waiter' || Date.now() - auth.at > 14400000) {
+        localStorage.removeItem('laguna-auth');
+        navigate('/');
+      }
+    } catch { navigate('/'); }
+  }, [navigate]);
 
   const refresh = useCallback(async () => {
     const all = await getOrders();
@@ -26,6 +37,16 @@ export default function WaiterOrdersPage() {
     const interval = setInterval(refresh, 3000);
     return () => clearInterval(interval);
   }, [refresh]);
+
+  useEffect(() => {
+    const fetch = async () => {
+      const notifs = await getNotifications();
+      setNewCount(notifs.length);
+    };
+    fetch();
+    const interval = setInterval(fetch, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
   const formatTime = (ts: number) => {
     const d = new Date(ts);
@@ -53,12 +74,17 @@ export default function WaiterOrdersPage() {
           </div>
           <div className="flex items-center gap-3">
             <button
-              onClick={() => { setShowNewBadge(false); }}
+              onClick={async () => {
+                setShowNewBadge(false);
+                const notifs = await getNotifications();
+                await Promise.all(notifs.map(n => clearNotification(n.id)));
+                setNewCount(0);
+              }}
               className="relative text-xs text-white/60 bg-white/10 px-2.5 py-1 rounded-lg"
             >
               <Bell className="h-3.5 w-3.5 inline ml-1" />
               {completedOrders.length}
-              {showNewBadge && (
+              {(showNewBadge || newCount > 0) && (
                 <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 rounded-full animate-pulse" />
               )}
             </button>

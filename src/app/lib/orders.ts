@@ -111,8 +111,14 @@ export async function clearNotification(id: string): Promise<void> {
 }
 
 export async function clearAllOrders(): Promise<void> {
-  const res = await fetch(`${DB_URL}.json`, { method: 'DELETE' });
-  if (!res.ok) throw new Error('Failed to clear orders');
+  const all = await getOrders();
+  const todayStart = new Date();
+  todayStart.setHours(0, 0, 0, 0);
+  const todayEnd = todayStart.getTime() + 86400000;
+  const toDelete = all.filter(o => o.timestamp >= todayStart.getTime() && o.timestamp < todayEnd);
+  await Promise.all(toDelete.map(o =>
+    fetch(`${DB_URL}/${o.id}.json`, { method: 'DELETE' })
+  ));
 }
 
 export async function clearAllData(): Promise<void> {
@@ -205,14 +211,20 @@ export interface Invoice {
 
 export async function createInvoice(order: Order): Promise<Invoice | null> {
   try {
-    const counterRes = await fetch(`${COUNTER_URL}/invoiceNumber.json`);
-    let counter = await counterRes.json();
-    counter = (counter || 0) + 1;
-    await fetch(`${COUNTER_URL}/invoiceNumber.json`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(counter),
-    });
+    let counter = 0;
+    for (let attempt = 0; attempt < 5; attempt++) {
+      const counterRes = await fetch(`${COUNTER_URL}/invoiceNumber.json`);
+      const current = await counterRes.json();
+      counter = (current || 0) + 1;
+      await fetch(`${COUNTER_URL}/invoiceNumber.json`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(counter),
+      });
+      const verifyRes = await fetch(`${COUNTER_URL}/invoiceNumber.json`);
+      const written = await verifyRes.json();
+      if (written === counter) break;
+    }
 
     const invoice: Omit<Invoice, 'id'> = {
       invoiceNumber: `INV-${String(counter).padStart(4, '0')}`,
