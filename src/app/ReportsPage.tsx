@@ -272,17 +272,29 @@ export default function ReportsPage() {
             <BarChart3 className="h-5 w-5 text-amber-600" />
             <h1 className="text-xl font-bold text-stone-800">التقارير</h1>
           </div>
-          {viewMode === 'today' && orders.length > 0 && (
+          <div className="flex items-center gap-2">
+            {viewMode === 'today' && orders.length > 0 && (
+              <button
+                onClick={handleClearToday}
+                disabled={clearing}
+                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-amber-600 hover:text-amber-700 hover:bg-amber-50 rounded-lg transition-colors disabled:opacity-50"
+              >
+                <Trash2 className="h-3.5 w-3.5" />
+                {clearing ? 'جاري الأرشفة...' : 'أرشفة ومسح'}
+              </button>
+            )}
             <button
-              onClick={handleClearToday}
-              disabled={clearing}
-              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-red-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50"
+              onClick={async () => {
+                if (!window.confirm('هل أنت متأكد من مسح جميع الطلبات؟ هذا لا يؤثر على التقارير المؤرشفة.')) return;
+                await clearAllOrders();
+                setOrders([]);
+              }}
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-red-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
             >
               <Trash2 className="h-3.5 w-3.5" />
-              {clearing ? 'جاري الأرشفة...' : 'أرشفة ومسح'}
+              مسح الطلبات
             </button>
-          )}
-          {viewMode !== 'today' && <div className="w-24" />}
+          </div>
         </div>
 
         {/* View Mode Tabs */}
