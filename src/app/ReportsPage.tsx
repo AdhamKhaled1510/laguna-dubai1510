@@ -139,74 +139,79 @@ export default function ReportsPage() {
   // ── Dashboard data ──────────────────────────────────────────
   const dashData = useMemo(() => {
     const now = new Date();
+    const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
     const days: { date: string; label: string; revenue: number; orders: number; returns: number; items: number }[] = [];
 
+    // Helper: get live totals for a given date (for today only, past days have no live orders)
+    const liveForDay = (dateStr: string) => {
+      if (dateStr !== todayStr) return { revenue: 0, orders: 0 };
+      const dayEnd = todayStart + 86400000;
+      let rev = 0, cnt = 0;
+      for (const o of orders) {
+        if (o.timestamp >= todayStart && o.timestamp < dayEnd) {
+          rev += o.totalPrice;
+          cnt += 1;
+        }
+      }
+      return { revenue: rev, orders: cnt };
+    };
+
+    // Helper: returns total for a date from archived report + live orders
+    const totalForDay = (dateStr: string) => {
+      const report = savedReports.find(r => r.date === dateStr);
+      const live = liveForDay(dateStr);
+      const returns = invoices
+        .filter(inv => new Date(inv.createdAt).toISOString().slice(0, 10) === dateStr && (inv.status === 'returned' || inv.status === 'partial_return'))
+        .reduce((s, inv) => s + inv.totalPrice, 0);
+      return {
+        revenue: (report?.totalRevenue || 0) + live.revenue,
+        orders: (report?.totalOrders || 0) + live.orders,
+        items: report?.totalItems || 0,
+        returns,
+      };
+    };
+
     if (dashboardPeriod === 'day') {
-      // Hourly breakdown for today
-      const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+      // Hourly breakdown from live orders only (archived report has no hourly data)
       const hourTotals: Record<number, { revenue: number; orders: number; returns: number }> = {};
       for (let h = 0; h < 24; h++) hourTotals[h] = { revenue: 0, orders: 0, returns: 0 };
 
       for (const o of orders) {
-        const d = new Date(o.timestamp);
-        if (d.getTime() >= todayStart) {
-          const h = d.getHours();
+        if (o.timestamp >= todayStart) {
+          const h = new Date(o.timestamp).getHours();
           hourTotals[h].revenue += o.totalPrice;
           hourTotals[h].orders += 1;
         }
       }
       for (const inv of invoices) {
-        const d = new Date(inv.createdAt);
-        if (d.toISOString().slice(0, 10) === todayStr && (inv.status === 'returned' || inv.status === 'partial_return')) {
-          const h = d.getHours();
+        if (new Date(inv.createdAt).toISOString().slice(0, 10) === todayStr && (inv.status === 'returned' || inv.status === 'partial_return')) {
+          const h = new Date(inv.createdAt).getHours();
           hourTotals[h].returns += inv.totalPrice;
         }
       }
       for (let h = 0; h < 24; h++) {
         const d = new Date(now);
         d.setHours(h, 0, 0, 0);
-        const label = d.toLocaleTimeString('ar-EG', { hour: '2-digit' });
-        days.push({ date: `${h}`, label, ...hourTotals[h], items: 0 });
+        days.push({ date: `${h}`, label: d.toLocaleTimeString('ar-EG', { hour: '2-digit' }), ...hourTotals[h], items: 0 });
       }
     } else if (dashboardPeriod === 'week') {
       for (let i = 6; i >= 0; i--) {
         const d = new Date();
         d.setDate(d.getDate() - i);
         const dateStr = d.toISOString().slice(0, 10);
-        const report = savedReports.find(r => r.date === dateStr);
-        const returns = invoices
-          .filter(inv => new Date(inv.createdAt).toISOString().slice(0, 10) === dateStr && (inv.status === 'returned' || inv.status === 'partial_return'))
-          .reduce((s, inv) => s + inv.totalPrice, 0);
-        days.push({
-          date: dateStr,
-          revenue: report?.totalRevenue || 0,
-          orders: report?.totalOrders || 0,
-          items: report?.totalItems || 0,
-          returns,
-          label: d.toLocaleDateString('ar-EG', { weekday: 'short', day: 'numeric' }),
-        });
+        const totals = totalForDay(dateStr);
+        days.push({ date: dateStr, label: d.toLocaleDateString('ar-EG', { weekday: 'short', day: 'numeric' }), ...totals });
       }
     } else {
-      // Month — build a set of archived days in this month
+      // Month
       const monthPrefix = todayStr.slice(0, 7);
-      const reportedDays = new Set(savedReports.filter(r => r.date.startsWith(monthPrefix)).map(r => r.date));
       const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
       for (let i = 1; i <= daysInMonth; i++) {
         const d = new Date(now.getFullYear(), now.getMonth(), i);
         const dateStr = d.toISOString().slice(0, 10);
         if (dateStr > todayStr) break;
-        const report = savedReports.find(r => r.date === dateStr);
-        const returns = invoices
-          .filter(inv => new Date(inv.createdAt).toISOString().slice(0, 10) === dateStr && (inv.status === 'returned' || inv.status === 'partial_return'))
-          .reduce((s, inv) => s + inv.totalPrice, 0);
-        days.push({
-          date: dateStr,
-          revenue: report?.totalRevenue || 0,
-          orders: report?.totalOrders || 0,
-          items: report?.totalItems || 0,
-          returns,
-          label: d.toLocaleDateString('ar-EG', { day: 'numeric', month: 'short' }),
-        });
+        const totals = totalForDay(dateStr);
+        days.push({ date: dateStr, label: d.toLocaleDateString('ar-EG', { day: 'numeric', month: 'short' }), ...totals });
       }
     }
     return days;
