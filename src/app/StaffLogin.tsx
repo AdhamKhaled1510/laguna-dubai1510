@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import { Coffee, CookingPot, BarChart3, QrCode, Receipt, Lock, X } from 'lucide-react';
+import { Coffee, CookingPot, BarChart3, QrCode, Lock, X } from 'lucide-react';
 import logoUrl from '@/assets/logo.png';
 import { getPassword } from './lib/orders';
 
@@ -121,26 +121,7 @@ export default function StaffLogin() {
             <QrCode className="h-4 w-4" />
             QR الكود
           </button>
-          <button
-            onClick={() => {
-              const pw = prompt('الرجاء إدخال كلمة سر التقارير للدخول إلى الفواتير');
-              if (pw) {
-                getPassword('invoices').then(stored => {
-                  const expected = stored || DEFAULT_PASSWORDS.invoices;
-                  if (pw === expected) {
-                    localStorage.setItem('laguna-auth', JSON.stringify({ role: 'invoices', path: '/invoices', at: Date.now() }));
-                    navigate('/invoices');
-                  } else {
-                    alert('كلمة السر خطأ');
-                  }
-                });
-              }
-            }}
-            className="flex items-center gap-2 px-4 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl text-white/60 hover:text-white/80 text-sm transition-colors"
-          >
-            <Receipt className="h-4 w-4" />
-            الفواتير
-          </button>
+
         </div>
 
         <p className="text-[10px] text-white/20 mt-12">اختر وظيفتك للدخول إلى لوحة التحكم الخاصة بك</p>
