@@ -6,6 +6,7 @@ import { getOrders, completeOrder, sendNotification, createInvoice, Order } from
 export default function BaristaPage() {
   const navigate = useNavigate();
   const [orders, setOrders] = useState<Order[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     try {
@@ -20,6 +21,7 @@ export default function BaristaPage() {
   const refresh = useCallback(async () => {
     const all = await getOrders();
     setOrders(all.filter(o => o.status === 'pending'));
+    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -40,6 +42,30 @@ export default function BaristaPage() {
     const d = new Date(ts);
     return d.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' });
   };
+
+  const Skeleton = () => (
+    <div className="bg-white border border-stone-100 rounded-xl shadow-sm overflow-hidden animate-pulse">
+      <div className="bg-stone-200 px-4 py-3 flex items-center justify-between">
+        <div className="h-5 bg-stone-300 rounded w-24" />
+        <div className="h-4 bg-stone-300 rounded w-16" />
+      </div>
+      <div className="px-4 py-3 space-y-3">
+        {[1,2,3].map(i => (
+          <div key={i} className="flex items-center justify-between py-2 border-b border-stone-50 last:border-0">
+            <div className="flex items-center gap-3">
+              <div className="w-6 h-6 bg-stone-200 rounded-full" />
+              <div className="h-4 bg-stone-200 rounded w-32" />
+            </div>
+            <div className="h-4 bg-stone-200 rounded w-12" />
+          </div>
+        ))}
+      </div>
+      <div className="bg-stone-50 px-4 py-3 flex items-center justify-between">
+        <div className="h-5 bg-stone-200 rounded w-20" />
+        <div className="h-9 bg-stone-200 rounded-lg w-16" />
+      </div>
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-[#f5f0eb]" dir="rtl">
@@ -64,7 +90,12 @@ export default function BaristaPage() {
       </header>
 
       <main className="container mx-auto px-3 py-4 max-w-3xl">
-        {orders.length === 0 ? (
+        {loading ? (
+          <div className="space-y-4">
+            <Skeleton />
+            <Skeleton />
+          </div>
+        ) : orders.length === 0 ? (
           <div className="text-center py-20">
             <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-white flex items-center justify-center shadow-sm">
               <svg className="h-8 w-8 text-stone-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>

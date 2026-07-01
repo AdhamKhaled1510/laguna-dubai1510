@@ -29,6 +29,7 @@ export default function ReportsPage() {
   const [clearing, setClearing] = useState(false);
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [dashboardPeriod, setDashboardPeriod] = useState<DashPeriod>('week');
+  const [loading, setLoading] = useState(true);
 
   const today = new Date();
   const todayStr = today.toISOString().slice(0, 10);
@@ -40,6 +41,7 @@ export default function ReportsPage() {
       setOrders(all.filter(o => o.timestamp >= cutoff));
       setSavedReports(reports);
       setInvoices(invs);
+      setLoading(false);
     };
     fetchData();
     const interval = setInterval(fetchData, 10000);
@@ -398,8 +400,32 @@ export default function ReportsPage() {
           </button>
         </div>
 
-        {/* Today View */}
-        {viewMode === 'today' && (
+        {/* Loading */}
+        {loading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+            {[1,2,3].map(i => (
+              <div key={i} className="bg-white rounded-2xl p-5 shadow-sm border border-stone-100 animate-pulse">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="h-4 bg-stone-200 rounded w-24" />
+                  <div className="h-5 w-5 bg-stone-200 rounded" />
+                </div>
+                <div className="h-8 bg-stone-200 rounded w-16 mb-2" />
+                <div className="h-3 bg-stone-200 rounded w-20" />
+              </div>
+            ))}
+            <div className="sm:col-span-3 bg-white rounded-2xl p-5 shadow-sm border border-stone-100 animate-pulse">
+              <div className="h-4 bg-stone-200 rounded w-32 mb-3" />
+              <div className="space-y-2">
+                {[1,2,3,4,5].map(j => (
+                  <div key={j} className="flex items-center justify-between py-2 border-b border-stone-50 last:border-0">
+                    <div className="h-4 bg-stone-200 rounded w-40" />
+                    <div className="h-4 bg-stone-200 rounded w-20" />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        ) : viewMode === 'today' && (
           <>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
               <div className="bg-white rounded-2xl p-5 shadow-sm border border-stone-100">

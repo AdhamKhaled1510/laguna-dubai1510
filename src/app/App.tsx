@@ -278,6 +278,7 @@ export default function App() {
   const [activeCategory, setActiveCategory] = useState('hot');
   const [headerVisible, setHeaderVisible] = useState(true);
   const [itemOrderCounts, setItemOrderCounts] = useState<Record<string, number>>({});
+  const [menuLoading, setMenuLoading] = useState(true);
   const lastScrollY = useRef(0);
   const tableRef = useRef<HTMLDivElement>(null);
   const searchRef = useRef<HTMLDivElement>(null);

@@ -9,6 +9,7 @@ export default function WaiterOrdersPage() {
   const [completedOrders, setCompletedOrders] = useState<Order[]>([]);
   const [showNewBadge, setShowNewBadge] = useState(false);
   const [newCount, setNewCount] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     try {
@@ -30,6 +31,7 @@ export default function WaiterOrdersPage() {
       if (completed.length > prev.length) setShowNewBadge(true);
       return completed;
     });
+    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -60,6 +62,30 @@ export default function WaiterOrdersPage() {
     if (mins < 60) return `منذ ${mins} د`;
     return `منذ ${Math.floor(mins / 60)} س`;
   };
+
+  const Skeleton = () => (
+    <div className="bg-white border border-stone-100 rounded-xl shadow-sm overflow-hidden animate-pulse">
+      <div className="bg-stone-200 px-4 py-3 flex items-center justify-between">
+        <div className="h-5 bg-stone-300 rounded w-24" />
+        <div className="h-4 bg-stone-300 rounded w-16" />
+      </div>
+      <div className="px-4 py-3 space-y-3">
+        {[1,2,3].map(i => (
+          <div key={i} className="flex items-center justify-between py-2 border-b border-stone-50 last:border-0">
+            <div className="flex items-center gap-3">
+              <div className="w-6 h-6 bg-stone-200 rounded-full" />
+              <div className="h-4 bg-stone-200 rounded w-32" />
+            </div>
+            <div className="h-4 bg-stone-200 rounded w-12" />
+          </div>
+        ))}
+      </div>
+      <div className="bg-stone-50 px-4 py-3 flex items-center justify-between">
+        <div className="h-5 bg-stone-200 rounded w-20" />
+        <div className="h-5 bg-stone-200 rounded w-16" />
+      </div>
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-[#f5f0eb]" dir="rtl">
@@ -96,7 +122,12 @@ export default function WaiterOrdersPage() {
       </header>
 
       <main className="container mx-auto px-3 py-4 max-w-3xl">
-        {completedOrders.length === 0 ? (
+        {loading ? (
+          <div className="space-y-4">
+            <Skeleton />
+            <Skeleton />
+          </div>
+        ) : completedOrders.length === 0 ? (
           <div className="text-center py-20">
             <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-white flex items-center justify-center shadow-sm">
               <CheckCircle className="h-8 w-8 text-stone-300" />
