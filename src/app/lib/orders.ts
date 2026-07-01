@@ -16,6 +16,9 @@ export interface Order {
 const DB_URL = 'https://laguna-dubai-default-rtdb.europe-west1.firebasedatabase.app/orders';
 const NOTIF_URL = 'https://laguna-dubai-default-rtdb.europe-west1.firebasedatabase.app/notifications';
 const REPORTS_URL = 'https://laguna-dubai-default-rtdb.europe-west1.firebasedatabase.app/dailyReports';
+const PASS_URL = 'https://laguna-dubai-default-rtdb.europe-west1.firebasedatabase.app/access/passwords';
+const INVOICES_URL = 'https://laguna-dubai-default-rtdb.europe-west1.firebasedatabase.app/invoices';
+const COUNTER_URL = 'https://laguna-dubai-default-rtdb.europe-west1.firebasedatabase.app/counters';
 
 export interface DrinkSummary {
   nameAr: string;
@@ -141,4 +144,92 @@ export async function getDailyReports(): Promise<DailyReport[]> {
 
 export async function clearAllDailyReports(): Promise<void> {
   await reportsApi('DELETE');
+}
+
+// ── Passwords ────────────────────────────────────────────
+export async function getPassword(role: 'waiter' | 'barista' | 'reports' | 'invoices'): Promise<string> {
+  try {
+    const res = await fetch(`${PASS_URL}/${role}.json`);
+    const data = await res.json();
+    return data || '';
+  } catch {
+    return '';
+  }
+}
+
+export async function setPassword(role: string, password: string): Promise<void> {
+  await fetch(`${PASS_URL}/${role}.json`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(password),
+  });
+}
+
+// ── Invoices ────────────────────────────────────────────
+export interface Invoice {
+  id: string;
+  invoiceNumber: string;
+  tableNumber: number;
+  items: OrderItem[];
+  totalPrice: number;
+  createdAt: number;
+  status: 'paid' | 'returned' | 'partial_return';
+  returnedItems?: { nameAr: string; quantity: number }[];
+}
+
+export async function createInvoice(order: Order): Promise<Invoice | null> {
+  try {
+    const counterRes = await fetch(`${COUNTER_URL}/invoiceNumber.json`);
+    let counter = await counterRes.json();
+    counter = (counter || 0) + 1;
+    await fetch(`${COUNTER_URL}/invoiceNumber.json`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(counter),
+    });
+
+    const invoice: Omit<Invoice, 'id'> = {
+      invoiceNumber: `INV-${String(counter).padStart(4, '0')}`,
+      tableNumber: order.tableNumber,
+      items: order.items,
+      totalPrice: order.totalPrice,
+      createdAt: Date.now(),
+      status: 'paid',
+    };
+
+    const res = await fetch(`${INVOICES_URL}.json`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(invoice),
+    });
+    const data = await res.json();
+    return { ...invoice, id: data.name };
+  } catch {
+    return null;
+  }
+}
+
+export async function getInvoices(): Promise<Invoice[]> {
+  try {
+    const res = await fetch(`${INVOICES_URL}.json`);
+    const data = await res.json();
+    if (!data) return [];
+    return Object.entries(data).map(([key, val]: [string, any]) => ({ ...val, id: key }));
+  } catch {
+    return [];
+  }
+}
+
+export async function updateInvoiceStatus(
+  id: string,
+  status: 'paid' | 'returned' | 'partial_return',
+  returnedItems?: { nameAr: string; quantity: number }[]
+): Promise<void> {
+  const body: any = { status };
+  if (returnedItems) body.returnedItems = returnedItems;
+  await fetch(`${INVOICES_URL}/${id}.json`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
 }

@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router';
 import logoUrl from '@/assets/logo.png';
-import { getOrders, completeOrder, sendNotification, Order } from './lib/orders';
+import { getOrders, completeOrder, sendNotification, createInvoice, Order } from './lib/orders';
 
 export default function BaristaPage() {
   const navigate = useNavigate();
@@ -18,9 +18,10 @@ export default function BaristaPage() {
     return () => clearInterval(interval);
   }, [refresh]);
 
-  const handleComplete = async (tableNumber: number, id: string) => {
-    await completeOrder(id);
-    await sendNotification(tableNumber);
+  const handleComplete = async (order: Order) => {
+    await completeOrder(order.id);
+    await createInvoice(order);
+    await sendNotification(order.tableNumber);
     refresh();
   };
 
@@ -94,7 +95,7 @@ export default function BaristaPage() {
                     الإجمالي: {order.totalPrice} ج.م
                   </span>
                   <button
-                    onClick={() => handleComplete(order.tableNumber, order.id)}
+                    onClick={() => handleComplete(order)}
                     className="px-5 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-bold rounded-lg transition-colors active:scale-95"
                   >
                     تم

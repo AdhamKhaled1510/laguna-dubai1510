@@ -1,10 +1,11 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router';
-import { getOrders, clearAllOrders, saveDailyReport, getDailyReports, DailyReport, Order } from './lib/orders';
-import { ArrowLeft, BarChart3, Coffee, DollarSign, ShoppingBag, TrendingUp, Trash2, Calendar, ChevronDown } from 'lucide-react';
+import { getOrders, clearAllOrders, saveDailyReport, getDailyReports, getInvoices, DailyReport, Order, Invoice } from './lib/orders';
+import { ArrowLeft, BarChart3, Coffee, DollarSign, ShoppingBag, TrendingUp, Trash2, Calendar, ChevronDown, LayoutDashboard } from 'lucide-react';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line } from 'recharts';
 import logoUrl from '@/assets/logo.png';
 
-type ViewMode = 'today' | 'day' | 'month';
+type ViewMode = 'today' | 'day' | 'month' | 'dashboard';
 
 export default function ReportsPage() {
   const navigate = useNavigate();
@@ -14,16 +15,18 @@ export default function ReportsPage() {
   const [selectedDay, setSelectedDay] = useState('');
   const [selectedMonth, setSelectedMonth] = useState('');
   const [clearing, setClearing] = useState(false);
+  const [invoices, setInvoices] = useState<Invoice[]>([]);
 
   const today = new Date();
   const todayStr = today.toISOString().slice(0, 10);
 
   useEffect(() => {
     const fetchData = async () => {
-      const [all, reports] = await Promise.all([getOrders(), getDailyReports()]);
+      const [all, reports, invs] = await Promise.all([getOrders(), getDailyReports(), getInvoices()]);
       const cutoff = Date.now() - 24 * 60 * 60 * 1000;
       setOrders(all.filter(o => o.timestamp >= cutoff));
       setSavedReports(reports);
+      setInvoices(invs);
     };
     fetchData();
     const interval = setInterval(fetchData, 10000);
@@ -131,6 +134,65 @@ export default function ReportsPage() {
   }
   const drinks = Array.from(drinksMap.values()).sort((a, b) => b.quantity - a.quantity);
 
+  // ── Dashboard data ──────────────────────────────────────────
+  const last7Days = useMemo(() => {
+    const days: { date: string; revenue: number; orders: number; items: number; label: string }[] = [];
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date();
+      d.setDate(d.getDate() - i);
+      const dateStr = d.toISOString().slice(0, 10);
+      const report = savedReports.find(r => r.date === dateStr);
+      const label = d.toLocaleDateString('ar-EG', { weekday: 'short', day: 'numeric' });
+      days.push({
+        date: dateStr,
+        revenue: report?.totalRevenue || 0,
+        orders: report?.totalOrders || 0,
+        items: report?.totalItems || 0,
+        label,
+      });
+    }
+    return days;
+  }, [savedReports]);
+
+  const topDrinks = useMemo(() => {
+    const map = new Map<string, number>();
+    for (const r of savedReports) {
+      for (const d of r.drinks) {
+        map.set(d.nameAr, (map.get(d.nameAr) || 0) + d.revenue);
+      }
+    }
+    return Array.from(map.entries())
+      .map(([name, revenue]) => ({ name, revenue }))
+      .sort((a, b) => b.revenue - a.revenue)
+      .slice(0, 8);
+  }, [savedReports]);
+
+  const returnsTotal = useMemo(() => {
+    return invoices
+      .filter(i => i.status === 'returned' || i.status === 'partial_return')
+      .reduce((s, i) => s + i.totalPrice, 0);
+  }, [invoices]);
+
+  const netRevenue = last7Days.reduce((s, d) => s + d.revenue, 0) - returnsTotal;
+
+  const COLORS = ['#f59e0b', '#10b981', '#3b82f6', '#ef4444', '#8b5cf6', '#ec4899', '#14b8a6', '#f97316'];
+
+  const CustomTooltip = ({ active, payload, label }: any) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="bg-white shadow-lg border border-stone-100 rounded-xl p-3 text-xs">
+          <p className="font-bold text-stone-800 mb-1">{label}</p>
+          {payload.map((p: any, i: number) => (
+            <p key={i} style={{ color: p.color }} className="font-medium">
+              {p.name}: {p.value.toLocaleString('ar-EG')} {p.name === 'المبيعات' ? 'ج.م' : ''}
+            </p>
+          ))}
+        </div>
+      );
+    }
+    return null;
+  };
+
   return (
     <div className="min-h-screen bg-[#f5f0eb]" dir="rtl">
       <div className="max-w-4xl mx-auto px-4 py-6 md:py-10">
@@ -204,6 +266,16 @@ export default function ReportsPage() {
               <ChevronDown className={`absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 pointer-events-none ${viewMode === 'month' ? 'text-amber-800' : 'text-stone-400'}`} />
             </div>
           )}
+
+          <button
+            onClick={() => setViewMode('dashboard')}
+            className={`shrink-0 px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
+              viewMode === 'dashboard' ? 'bg-amber-100 text-amber-800' : 'bg-white text-stone-500 hover:bg-stone-50 border border-stone-200'
+            }`}
+          >
+            <LayoutDashboard className="h-3.5 w-3.5 inline ml-1" />
+            داشبورد
+          </button>
         </div>
 
         {/* Today View */}
@@ -398,6 +470,113 @@ export default function ReportsPage() {
           <div className="text-center py-16">
             <Calendar className="h-12 w-12 text-stone-200 mx-auto mb-3" />
             <p className="text-stone-400 text-sm">اختر شهراً من القائمة لعرض التقرير الشهري</p>
+          </div>
+        )}
+
+        {/* Dashboard View */}
+        {viewMode === 'dashboard' && (
+          <div style={{animation: 'fadeIn 0.3s ease-out'}}>
+            {/* Summary cards */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+              <div className="bg-white rounded-2xl p-4 shadow-sm border border-stone-100">
+                <p className="text-xs text-stone-400 mb-1">إجمالي الإيرادات (7 أيام)</p>
+                <p className="text-xl font-bold text-amber-600">{last7Days.reduce((s, d) => s + d.revenue, 0).toLocaleString('ar-EG')} ج.م</p>
+              </div>
+              <div className="bg-white rounded-2xl p-4 shadow-sm border border-stone-100">
+                <p className="text-xs text-stone-400 mb-1">المرتجعات</p>
+                <p className="text-xl font-bold text-red-500">{returnsTotal.toLocaleString('ar-EG')} ج.م</p>
+              </div>
+              <div className="bg-white rounded-2xl p-4 shadow-sm border border-stone-100">
+                <p className="text-xs text-stone-400 mb-1">صافي الربح</p>
+                <p className="text-xl font-bold text-emerald-600">{netRevenue.toLocaleString('ar-EG')} ج.م</p>
+              </div>
+              <div className="bg-white rounded-2xl p-4 shadow-sm border border-stone-100">
+                <p className="text-xs text-stone-400 mb-1">إجمالي الطلبات</p>
+                <p className="text-xl font-bold text-stone-800">{last7Days.reduce((s, d) => s + d.orders, 0)}</p>
+              </div>
+            </div>
+
+            {/* Revenue chart */}
+            <div className="bg-white rounded-2xl shadow-sm border border-stone-100 p-5 mb-6">
+              <div className="flex items-center gap-2 mb-4">
+                <TrendingUp className="h-4 w-4 text-amber-600" />
+                <h2 className="text-sm font-bold text-stone-800">اتجاه الإيرادات (آخر 7 أيام)</h2>
+              </div>
+              {last7Days.some(d => d.revenue > 0) ? (
+                <ResponsiveContainer width="100%" height={200}>
+                  <BarChart data={last7Days}>
+                    <XAxis dataKey="label" tick={{ fontSize: 11, fill: '#999' }} axisLine={false} tickLine={false} />
+                    <YAxis tick={{ fontSize: 11, fill: '#999' }} axisLine={false} tickLine={false} />
+                    <Tooltip content={<CustomTooltip />} />
+                    <Bar dataKey="revenue" name="المبيعات" radius={[6, 6, 0, 0]} fill="#f59e0b" />
+                  </BarChart>
+                </ResponsiveContainer>
+              ) : (
+                <p className="text-center text-sm text-stone-400 py-8">لا توجد بيانات كافية</p>
+              )}
+            </div>
+
+            {/* Top drinks + Orders chart */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+              <div className="bg-white rounded-2xl shadow-sm border border-stone-100 p-5">
+                <div className="flex items-center gap-2 mb-4">
+                  <Coffee className="h-4 w-4 text-amber-600" />
+                  <h2 className="text-sm font-bold text-stone-800">أعلى المشروبات إيراداً</h2>
+                </div>
+                {topDrinks.length > 0 ? (
+                  <ResponsiveContainer width="100%" height={250}>
+                    <BarChart data={topDrinks} layout="vertical">
+                      <XAxis type="number" tick={{ fontSize: 10, fill: '#999' }} axisLine={false} tickLine={false} />
+                      <YAxis dataKey="name" type="category" tick={{ fontSize: 10, fill: '#666' }} axisLine={false} tickLine={false} width={90} />
+                      <Tooltip content={<CustomTooltip />} />
+                      <Bar dataKey="revenue" name="الإيرادات" radius={[0, 6, 6, 0]} fill="#10b981" />
+                    </BarChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <p className="text-center text-sm text-stone-400 py-8">لا توجد بيانات</p>
+                )}
+              </div>
+
+              <div className="bg-white rounded-2xl shadow-sm border border-stone-100 p-5">
+                <div className="flex items-center gap-2 mb-4">
+                  <ShoppingBag className="h-4 w-4 text-amber-600" />
+                  <h2 className="text-sm font-bold text-stone-800">توزيع الطلبات (7 أيام)</h2>
+                </div>
+                {last7Days.some(d => d.orders > 0) ? (
+                  <ResponsiveContainer width="100%" height={250}>
+                    <PieChart>
+                      <Pie data={last7Days.filter(d => d.orders > 0)} dataKey="orders" nameKey="label" cx="50%" cy="50%" outerRadius={80} label={({ label, percent }) => `${label} (${(percent * 100).toFixed(0)}%)`} labelLine={false}>
+                        {last7Days.filter(d => d.orders > 0).map((_, idx) => (
+                          <Cell key={idx} fill={COLORS[idx % COLORS.length]} />
+                        ))}
+                      </Pie>
+                      <Tooltip />
+                    </PieChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <p className="text-center text-sm text-stone-400 py-8">لا توجد بيانات</p>
+                )}
+              </div>
+            </div>
+
+            {/* Day-by-day table */}
+            <div className="bg-white rounded-2xl shadow-sm border border-stone-100 overflow-hidden">
+              <div className="px-5 py-3 border-b border-stone-100">
+                <h2 className="text-sm font-bold text-stone-800">تفصيل الأيام</h2>
+              </div>
+              <div className="divide-y divide-stone-50">
+                {last7Days.map(day => (
+                  <div key={day.date} className="flex items-center justify-between px-5 py-3 hover:bg-stone-50/50 transition-colors">
+                    <span className="text-sm font-medium text-stone-800">{day.label}</span>
+                    <div className="flex items-center gap-4 text-xs text-stone-500">
+                      <span>{day.orders} طلب</span>
+                      <span>{day.items} قطعة</span>
+                      <span className="font-bold text-amber-600">{day.revenue.toLocaleString('ar-EG')} ج.م</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         )}
 
