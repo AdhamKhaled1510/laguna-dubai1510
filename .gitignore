@@ -3,3 +3,4 @@ node_modules/
 .git-home/
 public/
 src/assets/photos /
+dist/

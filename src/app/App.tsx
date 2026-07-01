@@ -161,7 +161,7 @@ const menuData: MenuItemType[] = [
   //  الكوكتيلات
   // ════════════════════════════════════════
   { id: 100, name: 'Hawaii',            nameAr: 'هاواي',             descriptionAr: 'كوكتيل هاواي',           price: 70,  image: IMG_COCKTAIL, category: 'cocktails' },
-  { id: 101, name: 'Larouz',            nameAr: 'لاروز',             descriptionAr: 'كوكتيل لاروز',           price: 75,  image: IMG_COCKTAIL, category: 'cocktails' },
+  // removed duplicate: { id: 101, name: 'Larouz', nameAr: 'لاروز', ... } — replaced by كوكتيل لاروز (id 318)
   { id: 102, name: 'Green Red',         nameAr: 'جرين ريد',          descriptionAr: 'كوكتيل روز',            price: 85,  image: IMG_COCKTAIL, category: 'cocktails' },
   { id: 103, name: 'Red Mash',           nameAr: 'ريد ماش',         descriptionAr: 'كوكتيل ريد ماش',         price: 70,  image: IMG_COCKTAIL, category: 'cocktails' },
   { id: 104, name: 'Blueberry Kiwi',     nameAr: 'بلو بيري كيوي ماش',  descriptionAr: 'كوكتيل بلو بيري كيوي',  price: 80,  image: IMG_COCKTAIL, category: 'cocktails' },
@@ -249,6 +249,7 @@ const menuData: MenuItemType[] = [
   // ════════════════════════════════════════
   //  مشروبات جديدة
   // ════════════════════════════════════════
+  { id: 299, name: 'Nescafe Milk',               nameAr: 'نسكافية حليب',          descriptionAr: 'نسكافية بالحليب الطازج',           price: 40, image: IMG_CAPPUCCINO, category: 'hot'  },
   { id: 300, name: 'Double Macchiato',           nameAr: 'دبل ميكاتو',            descriptionAr: 'دبل ميكاتو كريمي',               price: 65, image: IMG_CAPPUCCINO, category: 'hot' },
   { id: 301, name: 'Flavored Cappuccino',        nameAr: 'كابتشينو فليفر',        descriptionAr: 'كابتشينو بنكهات مميزة',            price: 70, image: IMG_CAPPUCCINO, category: 'hot' },
   { id: 302, name: 'Flavored Latte',             nameAr: 'لاتيه فليفر',           descriptionAr: 'لاتيه بنكهات مميزة',               price: 70, image: IMG_CAPPUCCINO, category: 'hot' },
