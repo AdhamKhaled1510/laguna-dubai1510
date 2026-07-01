@@ -111,7 +111,8 @@ export async function clearNotification(id: string): Promise<void> {
 }
 
 export async function clearAllOrders(): Promise<void> {
-  await api('DELETE');
+  const res = await fetch(`${DB_URL}.json`, { method: 'DELETE' });
+  if (!res.ok) throw new Error('Failed to clear orders');
 }
 
 async function reportsApi(method: string, body?: unknown): Promise<any> {

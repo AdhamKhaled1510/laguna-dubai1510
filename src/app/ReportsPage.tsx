@@ -285,9 +285,14 @@ export default function ReportsPage() {
             )}
             <button
               onClick={async () => {
-                if (!window.confirm('هل أنت متأكد من مسح جميع الطلبات؟ هذا لا يؤثر على التقارير المؤرشفة.')) return;
-                await clearAllOrders();
-                setOrders([]);
+                if (!window.confirm('⚠️ مسح جميع الطلبات؟\nهذا لا يؤثر على التقارير المؤرشفة.')) return;
+                try {
+                  await clearAllOrders();
+                  setOrders([]);
+                  alert('✅ تم مسح جميع الطلبات بنجاح');
+                } catch {
+                  alert('❌ فشل المسح، حاول مرة أخرى');
+                }
               }}
               className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-red-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
             >
