@@ -2,10 +2,11 @@ import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router';
 import { getOrders, clearAllOrders, saveDailyReport, getDailyReports, getInvoices, DailyReport, Order, Invoice } from './lib/orders';
 import { ArrowLeft, BarChart3, Coffee, DollarSign, ShoppingBag, TrendingUp, Trash2, Calendar, ChevronDown, LayoutDashboard } from 'lucide-react';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import logoUrl from '@/assets/logo.png';
 
 type ViewMode = 'today' | 'day' | 'month' | 'dashboard';
+type DashPeriod = 'day' | 'week' | 'month';
 
 export default function ReportsPage() {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ export default function ReportsPage() {
   const [selectedMonth, setSelectedMonth] = useState('');
   const [clearing, setClearing] = useState(false);
   const [invoices, setInvoices] = useState<Invoice[]>([]);
+  const [dashboardPeriod, setDashboardPeriod] = useState<DashPeriod>('week');
 
   const today = new Date();
   const todayStr = today.toISOString().slice(0, 10);
@@ -135,45 +137,109 @@ export default function ReportsPage() {
   const drinks = Array.from(drinksMap.values()).sort((a, b) => b.quantity - a.quantity);
 
   // ── Dashboard data ──────────────────────────────────────────
-  const last7Days = useMemo(() => {
-    const days: { date: string; revenue: number; orders: number; items: number; label: string }[] = [];
-    for (let i = 6; i >= 0; i--) {
-      const d = new Date();
-      d.setDate(d.getDate() - i);
-      const dateStr = d.toISOString().slice(0, 10);
-      const report = savedReports.find(r => r.date === dateStr);
-      const label = d.toLocaleDateString('ar-EG', { weekday: 'short', day: 'numeric' });
-      days.push({
-        date: dateStr,
-        revenue: report?.totalRevenue || 0,
-        orders: report?.totalOrders || 0,
-        items: report?.totalItems || 0,
-        label,
-      });
+  const dashData = useMemo(() => {
+    const now = new Date();
+    const days: { date: string; label: string; revenue: number; orders: number; returns: number; items: number }[] = [];
+
+    if (dashboardPeriod === 'day') {
+      // Hourly breakdown for today
+      const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+      const hourTotals: Record<number, { revenue: number; orders: number; returns: number }> = {};
+      for (let h = 0; h < 24; h++) hourTotals[h] = { revenue: 0, orders: 0, returns: 0 };
+
+      for (const o of orders) {
+        const d = new Date(o.timestamp);
+        if (d.getTime() >= todayStart) {
+          const h = d.getHours();
+          hourTotals[h].revenue += o.totalPrice;
+          hourTotals[h].orders += 1;
+        }
+      }
+      for (const inv of invoices) {
+        const d = new Date(inv.createdAt);
+        if (d.toISOString().slice(0, 10) === todayStr && (inv.status === 'returned' || inv.status === 'partial_return')) {
+          const h = d.getHours();
+          hourTotals[h].returns += inv.totalPrice;
+        }
+      }
+      for (let h = 0; h < 24; h++) {
+        const d = new Date(now);
+        d.setHours(h, 0, 0, 0);
+        const label = d.toLocaleTimeString('ar-EG', { hour: '2-digit' });
+        days.push({ date: `${h}`, label, ...hourTotals[h], items: 0 });
+      }
+    } else if (dashboardPeriod === 'week') {
+      for (let i = 6; i >= 0; i--) {
+        const d = new Date();
+        d.setDate(d.getDate() - i);
+        const dateStr = d.toISOString().slice(0, 10);
+        const report = savedReports.find(r => r.date === dateStr);
+        const returns = invoices
+          .filter(inv => new Date(inv.createdAt).toISOString().slice(0, 10) === dateStr && (inv.status === 'returned' || inv.status === 'partial_return'))
+          .reduce((s, inv) => s + inv.totalPrice, 0);
+        days.push({
+          date: dateStr,
+          revenue: report?.totalRevenue || 0,
+          orders: report?.totalOrders || 0,
+          items: report?.totalItems || 0,
+          returns,
+          label: d.toLocaleDateString('ar-EG', { weekday: 'short', day: 'numeric' }),
+        });
+      }
+    } else {
+      // Month — build a set of archived days in this month
+      const monthPrefix = todayStr.slice(0, 7);
+      const reportedDays = new Set(savedReports.filter(r => r.date.startsWith(monthPrefix)).map(r => r.date));
+      const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+      for (let i = 1; i <= daysInMonth; i++) {
+        const d = new Date(now.getFullYear(), now.getMonth(), i);
+        const dateStr = d.toISOString().slice(0, 10);
+        if (dateStr > todayStr) break;
+        const report = savedReports.find(r => r.date === dateStr);
+        const returns = invoices
+          .filter(inv => new Date(inv.createdAt).toISOString().slice(0, 10) === dateStr && (inv.status === 'returned' || inv.status === 'partial_return'))
+          .reduce((s, inv) => s + inv.totalPrice, 0);
+        days.push({
+          date: dateStr,
+          revenue: report?.totalRevenue || 0,
+          orders: report?.totalOrders || 0,
+          items: report?.totalItems || 0,
+          returns,
+          label: d.toLocaleDateString('ar-EG', { day: 'numeric', month: 'short' }),
+        });
+      }
     }
     return days;
-  }, [savedReports]);
+  }, [savedReports, invoices, orders, dashboardPeriod, todayStr]);
+
+  const dashTotalRevenue = dashData.reduce((s, d) => s + d.revenue, 0);
+  const dashTotalOrders = dashData.reduce((s, d) => s + d.orders, 0);
+  const dashTotalReturns = dashData.reduce((s, d) => s + d.returns, 0);
+  const dashNetRevenue = dashTotalRevenue - dashTotalReturns;
 
   const topDrinks = useMemo(() => {
     const map = new Map<string, number>();
+    const cutoff = dashboardPeriod === 'day'
+      ? new Date().getTime() - 24 * 60 * 60 * 1000
+      : dashboardPeriod === 'week'
+        ? new Date().getTime() - 7 * 24 * 60 * 60 * 1000
+        : new Date(new Date().getFullYear(), new Date().getMonth(), 1).getTime();
+
     for (const r of savedReports) {
-      for (const d of r.drinks) {
-        map.set(d.nameAr, (map.get(d.nameAr) || 0) + d.revenue);
+      const rMs = new Date(r.date + 'T12:00:00').getTime();
+      if (rMs >= cutoff) {
+        for (const d of r.drinks) {
+          map.set(d.nameAr, (map.get(d.nameAr) || 0) + d.revenue);
+        }
       }
     }
     return Array.from(map.entries())
       .map(([name, revenue]) => ({ name, revenue }))
       .sort((a, b) => b.revenue - a.revenue)
       .slice(0, 8);
-  }, [savedReports]);
+  }, [savedReports, dashboardPeriod]);
 
-  const returnsTotal = useMemo(() => {
-    return invoices
-      .filter(i => i.status === 'returned' || i.status === 'partial_return')
-      .reduce((s, i) => s + i.totalPrice, 0);
-  }, [invoices]);
-
-  const netRevenue = last7Days.reduce((s, d) => s + d.revenue, 0) - returnsTotal;
+  const periodLabel = dashboardPeriod === 'day' ? 'اليوم' : dashboardPeriod === 'week' ? 'آخر 7 أيام' : 'هذا الشهر';
 
   const COLORS = ['#f59e0b', '#10b981', '#3b82f6', '#ef4444', '#8b5cf6', '#ec4899', '#14b8a6', '#f97316'];
 
@@ -184,7 +250,7 @@ export default function ReportsPage() {
           <p className="font-bold text-stone-800 mb-1">{label}</p>
           {payload.map((p: any, i: number) => (
             <p key={i} style={{ color: p.color }} className="font-medium">
-              {p.name}: {p.value.toLocaleString('ar-EG')} {p.name === 'المبيعات' ? 'ج.م' : ''}
+              {p.name}: {p.value.toLocaleString('ar-EG')} {p.name === 'الإيرادات' || p.name === 'المرتجعات' ? 'ج.م' : ''}
             </p>
           ))}
         </div>
@@ -476,39 +542,57 @@ export default function ReportsPage() {
         {/* Dashboard View */}
         {viewMode === 'dashboard' && (
           <div style={{animation: 'fadeIn 0.3s ease-out'}}>
+            {/* Period selector */}
+            <div className="flex items-center gap-2 mb-6">
+              {(['day', 'week', 'month'] as const).map(p => (
+                <button
+                  key={p}
+                  onClick={() => setDashboardPeriod(p)}
+                  className={`shrink-0 px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
+                    dashboardPeriod === p ? 'bg-amber-100 text-amber-800' : 'bg-white text-stone-500 hover:bg-stone-50 border border-stone-200'
+                  }`}
+                >
+                  {p === 'day' ? 'يوم' : p === 'week' ? 'أسبوع' : 'شهر'}
+                </button>
+              ))}
+            </div>
+
             {/* Summary cards */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
               <div className="bg-white rounded-2xl p-4 shadow-sm border border-stone-100">
-                <p className="text-xs text-stone-400 mb-1">إجمالي الإيرادات (7 أيام)</p>
-                <p className="text-xl font-bold text-amber-600">{last7Days.reduce((s, d) => s + d.revenue, 0).toLocaleString('ar-EG')} ج.م</p>
+                <p className="text-xs text-stone-400 mb-1">إجمالي الإيرادات ({periodLabel})</p>
+                <p className="text-xl font-bold text-amber-600">{dashTotalRevenue.toLocaleString('ar-EG')} ج.م</p>
               </div>
               <div className="bg-white rounded-2xl p-4 shadow-sm border border-stone-100">
                 <p className="text-xs text-stone-400 mb-1">المرتجعات</p>
-                <p className="text-xl font-bold text-red-500">{returnsTotal.toLocaleString('ar-EG')} ج.م</p>
+                <p className="text-xl font-bold text-red-500">{dashTotalReturns.toLocaleString('ar-EG')} ج.م</p>
               </div>
               <div className="bg-white rounded-2xl p-4 shadow-sm border border-stone-100">
                 <p className="text-xs text-stone-400 mb-1">صافي الربح</p>
-                <p className="text-xl font-bold text-emerald-600">{netRevenue.toLocaleString('ar-EG')} ج.م</p>
+                <p className="text-xl font-bold text-emerald-600">{dashNetRevenue.toLocaleString('ar-EG')} ج.م</p>
               </div>
               <div className="bg-white rounded-2xl p-4 shadow-sm border border-stone-100">
                 <p className="text-xs text-stone-400 mb-1">إجمالي الطلبات</p>
-                <p className="text-xl font-bold text-stone-800">{last7Days.reduce((s, d) => s + d.orders, 0)}</p>
+                <p className="text-xl font-bold text-stone-800">{dashTotalOrders}</p>
               </div>
             </div>
 
-            {/* Revenue chart */}
+            {/* Combined chart: Revenue + Returns + Orders */}
             <div className="bg-white rounded-2xl shadow-sm border border-stone-100 p-5 mb-6">
               <div className="flex items-center gap-2 mb-4">
                 <TrendingUp className="h-4 w-4 text-amber-600" />
-                <h2 className="text-sm font-bold text-stone-800">اتجاه الإيرادات (آخر 7 أيام)</h2>
+                <h2 className="text-sm font-bold text-stone-800">الإيرادات والطلبات والمرتجعات ({periodLabel})</h2>
               </div>
-              {last7Days.some(d => d.revenue > 0) ? (
-                <ResponsiveContainer width="100%" height={200}>
-                  <BarChart data={last7Days}>
-                    <XAxis dataKey="label" tick={{ fontSize: 11, fill: '#999' }} axisLine={false} tickLine={false} />
-                    <YAxis tick={{ fontSize: 11, fill: '#999' }} axisLine={false} tickLine={false} />
+              {dashData.some(d => d.revenue > 0 || d.orders > 0) ? (
+                <ResponsiveContainer width="100%" height={250}>
+                  <BarChart data={dashData}>
+                    <XAxis dataKey="label" tick={{ fontSize: 10, fill: '#999' }} axisLine={false} tickLine={false} interval={dashboardPeriod === 'day' ? 2 : 'preserveStartEnd'} />
+                    <YAxis yAxisId="left" tick={{ fontSize: 10, fill: '#999' }} axisLine={false} tickLine={false} />
+                    <YAxis yAxisId="right" orientation="right" tick={{ fontSize: 10, fill: '#999' }} axisLine={false} tickLine={false} />
                     <Tooltip content={<CustomTooltip />} />
-                    <Bar dataKey="revenue" name="المبيعات" radius={[6, 6, 0, 0]} fill="#f59e0b" />
+                    <Bar yAxisId="left" dataKey="revenue" name="الإيرادات" radius={[4, 4, 0, 0]} fill="#f59e0b" />
+                    <Bar yAxisId="left" dataKey="returns" name="المرتجعات" radius={[4, 4, 0, 0]} fill="#ef4444" />
+                    <Bar yAxisId="right" dataKey="orders" name="الطلبات" radius={[4, 4, 0, 0]} fill="#3b82f6" opacity={0.6} />
                   </BarChart>
                 </ResponsiveContainer>
               ) : (
@@ -516,7 +600,7 @@ export default function ReportsPage() {
               )}
             </div>
 
-            {/* Top drinks + Orders chart */}
+            {/* Top drinks + Orders pie */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
               <div className="bg-white rounded-2xl shadow-sm border border-stone-100 p-5">
                 <div className="flex items-center gap-2 mb-4">
@@ -528,7 +612,7 @@ export default function ReportsPage() {
                     <BarChart data={topDrinks} layout="vertical">
                       <XAxis type="number" tick={{ fontSize: 10, fill: '#999' }} axisLine={false} tickLine={false} />
                       <YAxis dataKey="name" type="category" tick={{ fontSize: 10, fill: '#666' }} axisLine={false} tickLine={false} width={90} />
-                      <Tooltip content={<CustomTooltip />} />
+                      <Tooltip />
                       <Bar dataKey="revenue" name="الإيرادات" radius={[0, 6, 6, 0]} fill="#10b981" />
                     </BarChart>
                   </ResponsiveContainer>
@@ -540,13 +624,13 @@ export default function ReportsPage() {
               <div className="bg-white rounded-2xl shadow-sm border border-stone-100 p-5">
                 <div className="flex items-center gap-2 mb-4">
                   <ShoppingBag className="h-4 w-4 text-amber-600" />
-                  <h2 className="text-sm font-bold text-stone-800">توزيع الطلبات (7 أيام)</h2>
+                  <h2 className="text-sm font-bold text-stone-800">توزيع الطلبات ({periodLabel})</h2>
                 </div>
-                {last7Days.some(d => d.orders > 0) ? (
+                {dashData.some(d => d.orders > 0) ? (
                   <ResponsiveContainer width="100%" height={250}>
                     <PieChart>
-                      <Pie data={last7Days.filter(d => d.orders > 0)} dataKey="orders" nameKey="label" cx="50%" cy="50%" outerRadius={80} label={({ label, percent }) => `${label} (${(percent * 100).toFixed(0)}%)`} labelLine={false}>
-                        {last7Days.filter(d => d.orders > 0).map((_, idx) => (
+                      <Pie data={dashData.filter(d => d.orders > 0)} dataKey="orders" nameKey="label" cx="50%" cy="50%" outerRadius={80} label={({ label, percent }) => `${label} (${(percent * 100).toFixed(0)}%)`} labelLine={false}>
+                        {dashData.filter(d => d.orders > 0).map((_, idx) => (
                           <Cell key={idx} fill={COLORS[idx % COLORS.length]} />
                         ))}
                       </Pie>
@@ -559,22 +643,26 @@ export default function ReportsPage() {
               </div>
             </div>
 
-            {/* Day-by-day table */}
+            {/* Period detail table */}
             <div className="bg-white rounded-2xl shadow-sm border border-stone-100 overflow-hidden">
               <div className="px-5 py-3 border-b border-stone-100">
-                <h2 className="text-sm font-bold text-stone-800">تفصيل الأيام</h2>
+                <h2 className="text-sm font-bold text-stone-800">تفصيل {dashboardPeriod === 'day' ? 'الساعات' : 'الأيام'}</h2>
               </div>
               <div className="divide-y divide-stone-50">
-                {last7Days.map(day => (
-                  <div key={day.date} className="flex items-center justify-between px-5 py-3 hover:bg-stone-50/50 transition-colors">
-                    <span className="text-sm font-medium text-stone-800">{day.label}</span>
-                    <div className="flex items-center gap-4 text-xs text-stone-500">
-                      <span>{day.orders} طلب</span>
-                      <span>{day.items} قطعة</span>
-                      <span className="font-bold text-amber-600">{day.revenue.toLocaleString('ar-EG')} ج.م</span>
+                {dashData.filter(d => d.revenue > 0 || d.orders > 0 || d.returns > 0).length > 0 ? (
+                  dashData.filter(d => d.revenue > 0 || d.orders > 0 || d.returns > 0).map(row => (
+                    <div key={row.date} className="flex items-center justify-between px-5 py-3 hover:bg-stone-50/50 transition-colors">
+                      <span className="text-sm font-medium text-stone-800">{row.label}</span>
+                      <div className="flex items-center gap-4 text-xs text-stone-500">
+                        <span>{row.orders} طلب</span>
+                        {row.returns > 0 && <span className="text-red-500">-{row.returns.toLocaleString('ar-EG')} ج.م</span>}
+                        <span className="font-bold text-amber-600">{row.revenue.toLocaleString('ar-EG')} ج.م</span>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))
+                ) : (
+                  <div className="text-center py-8 text-stone-400 text-sm">لا توجد بيانات</div>
+                )}
               </div>
             </div>
           </div>
