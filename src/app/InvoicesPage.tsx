@@ -151,8 +151,19 @@ export default function InvoicesPage() {
     }
   };
 
-  const totalRevenue = invoices.filter(i => i.status === 'paid').reduce((s, i) => s + i.totalPrice, 0);
-  const totalReturns = invoices.filter(i => i.status === 'returned' || i.status === 'partial_return').reduce((s, i) => s + i.totalPrice, 0);
+  const calcRefund = (inv: Invoice): number => {
+    if (inv.status === 'returned') return inv.totalPrice;
+    if (inv.status === 'partial_return' && inv.returnedItems) {
+      return inv.returnedItems.reduce((sum, ri) => {
+        const item = inv.items.find(i => i.nameAr === ri.nameAr);
+        return sum + (item ? item.price * ri.quantity : 0);
+      }, 0);
+    }
+    return 0;
+  };
+
+  const totalRevenue = invoices.reduce((s, inv) => s + inv.totalPrice - calcRefund(inv), 0);
+  const totalReturns = invoices.reduce((s, inv) => s + calcRefund(inv), 0);
 
   return (
     <div className="min-h-screen bg-[#f5f0eb]" dir="rtl">

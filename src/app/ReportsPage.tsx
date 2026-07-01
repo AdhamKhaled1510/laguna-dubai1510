@@ -160,9 +160,18 @@ export default function ReportsPage() {
     const totalForDay = (dateStr: string) => {
       const report = savedReports.find(r => r.date === dateStr);
       const live = liveForDay(dateStr);
-      const returns = invoices
-        .filter(inv => new Date(inv.createdAt).toISOString().slice(0, 10) === dateStr && (inv.status === 'returned' || inv.status === 'partial_return'))
-        .reduce((s, inv) => s + inv.totalPrice, 0);
+      let returns = 0;
+      for (const inv of invoices) {
+        if (new Date(inv.createdAt).toISOString().slice(0, 10) === dateStr) {
+          if (inv.status === 'returned') returns += inv.totalPrice;
+          else if (inv.status === 'partial_return' && inv.returnedItems) {
+            returns += inv.returnedItems.reduce((sum, ri) => {
+              const item = inv.items.find(i => i.nameAr === ri.nameAr);
+              return sum + (item ? item.price * ri.quantity : 0);
+            }, 0);
+          }
+        }
+      }
       return {
         revenue: (report?.totalRevenue || 0) + live.revenue,
         orders: (report?.totalOrders || 0) + live.orders,
@@ -184,9 +193,19 @@ export default function ReportsPage() {
         }
       }
       for (const inv of invoices) {
-        if (new Date(inv.createdAt).toISOString().slice(0, 10) === todayStr && (inv.status === 'returned' || inv.status === 'partial_return')) {
-          const h = new Date(inv.createdAt).getHours();
-          hourTotals[h].returns += inv.totalPrice;
+        if (new Date(inv.createdAt).toISOString().slice(0, 10) === todayStr) {
+          let refund = 0;
+          if (inv.status === 'returned') refund = inv.totalPrice;
+          else if (inv.status === 'partial_return' && inv.returnedItems) {
+            refund = inv.returnedItems.reduce((sum, ri) => {
+              const item = inv.items.find(i => i.nameAr === ri.nameAr);
+              return sum + (item ? item.price * ri.quantity : 0);
+            }, 0);
+          }
+          if (refund > 0) {
+            const h = new Date(inv.createdAt).getHours();
+            hourTotals[h].returns += refund;
+          }
         }
       }
       for (let h = 0; h < 24; h++) {
