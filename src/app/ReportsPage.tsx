@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router';
-import { getOrders, clearAllOrders, clearOrdersByDate, deleteDailyReport, saveDailyReport, getDailyReports, getInvoices, DailyReport, Order, Invoice } from './lib/orders';
+import { getOrders, clearAllOrders, clearOrdersByDate, deleteDailyReport, saveDailyReport, getDailyReports, getInvoices, clearAllData, DailyReport, Order, Invoice } from './lib/orders';
 import { ArrowLeft, BarChart3, Coffee, DollarSign, ShoppingBag, TrendingUp, Trash2, Calendar, ChevronDown, LayoutDashboard } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import logoUrl from '@/assets/logo.png';
@@ -309,24 +309,13 @@ export default function ReportsPage() {
             )}
             <button
               onClick={async () => {
-                const isDayView = viewMode === 'day' && selectedDay;
-                const isTodayView = viewMode === 'today';
-                const label = isDayView ? `بيانات يوم ${selectedDay}` : isTodayView ? 'طلبات اليوم' : 'جميع الطلبات';
-                if (!window.confirm(`⚠️ مسح ${label}؟`)) return;
+                if (!window.confirm('⚠️ مسح جميع البيانات؟')) return;
                 try {
-                  if (isDayView) {
-                    await deleteDailyReport(selectedDay);
-                    setSavedReports(prev => prev.filter(r => r.date !== selectedDay));
-                    setSelectedDay('');
-                    setViewMode('today');
-                  } else if (isTodayView) {
-                    await clearAllOrders();
-                    setOrders([]);
-                  } else {
-                    await clearAllOrders();
-                    setOrders([]);
-                  }
-                  alert(`✅ تم مسح ${label}`);
+                  await clearAllData();
+                  setOrders([]);
+                  setSavedReports([]);
+                  setInvoices([]);
+                  alert('✅ تم مسح جميع البيانات');
                 } catch {
                   alert('❌ فشل المسح، حاول مرة أخرى');
                 }
@@ -334,7 +323,7 @@ export default function ReportsPage() {
               className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-red-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
             >
               <Trash2 className="h-3.5 w-3.5" />
-              مسح {viewMode === 'day' && selectedDay ? 'هذا اليوم' : viewMode === 'today' ? 'الطلبات' : 'الكل'}
+              مسح الكل
             </button>
           </div>
         </div>
