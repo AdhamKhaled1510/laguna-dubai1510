@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import { Coffee, CookingPot, BarChart3, QrCode, Receipt, Lock, X, Users } from 'lucide-react';
 import logoUrl from '@/assets/logo.png';
-import { getPassword } from './lib/orders';
+import { getPassword, setPassword } from './lib/orders';
 
 const DEFAULT_PASSWORDS: Record<string, string> = {
   waiter: '1234',
@@ -179,6 +179,22 @@ export default function StaffLogin() {
                 className="w-full mt-4 py-3 bg-gradient-to-l from-stone-800 to-stone-700 hover:from-stone-700 hover:to-stone-600 text-white font-bold text-sm rounded-xl transition-all active:scale-[0.98] disabled:opacity-50"
               >
                 {loading ? 'جاري التحقق...' : 'دخول'}
+              </button>
+              <button
+                onClick={async () => {
+                  const old = prompt('كلمة السر الحالية:');
+                  if (!old) return;
+                  const stored = await getPassword(passwordModal!.role as any);
+                  const expected = stored || DEFAULT_PASSWORDS[passwordModal!.role] || '1234';
+                  if (old !== expected) { alert('كلمة السر الحالية خطأ'); return; }
+                  const newPw = prompt('كلمة السر الجديدة:');
+                  if (!newPw || newPw.length < 3) { alert('كلمة السر يجب أن تكون 3 أحرف على الأقل'); return; }
+                  await setPassword(passwordModal!.role, newPw);
+                  alert('✅ تم تغيير كلمة السر بنجاح');
+                }}
+                className="w-full mt-2 py-2 text-xs text-stone-400 hover:text-stone-600 transition-colors"
+              >
+                تغيير كلمة السر
               </button>
             </div>
           </div>
