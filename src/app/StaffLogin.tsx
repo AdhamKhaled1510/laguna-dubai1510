@@ -128,6 +128,7 @@ export default function StaffLogin() {
                 getPassword('invoices').then(stored => {
                   const expected = stored || DEFAULT_PASSWORDS.invoices;
                   if (pw === expected) {
+                    localStorage.setItem('laguna-auth', JSON.stringify({ role: 'invoices', path: '/invoices', at: Date.now() }));
                     navigate('/invoices');
                   } else {
                     alert('كلمة السر خطأ');
