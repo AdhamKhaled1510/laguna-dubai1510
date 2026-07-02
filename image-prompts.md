@@ -310,3 +310,42 @@ A fruit salad topped with vanilla ice cream in a glass bowl on a wooden table, c
 ```
 A fruit salad with mixed nuts and vanilla ice cream in a glass bowl on a wooden table, colorful fruits, almond and walnut pieces, melting cream, rustic wood background, bright natural lighting
 ```
+
+---
+
+## Missing Images
+
+### ميكاتو (Single macchiato)
+```
+A single macchiato in a small espresso glass on a rustic wooden table, layered espresso with a dollop of milk foam on top, dark wood background, warm ambient cafe lighting, shallow depth of field, 4K food photography
+```
+
+### امريكان كوفي (American coffee)
+```
+A cup of American black coffee on a rustic wooden table, clear dark brew in a white ceramic mug, steam rising, warm cafe atmosphere, soft natural lighting, professional food photography
+```
+
+### اسموزي فراولة (Strawberry smoothie)
+```
+A strawberry smoothie in a tall glass on a wooden table, vibrant pink color, fresh strawberries on the rim, mint leaf garnish, ice cubes visible, bright natural lighting, condensation on glass, professional food photo
+```
+
+### ميلك شيك بندق (Hazelnut milkshake)
+```
+A hazelnut milkshake in a tall glass on a wooden table, creamy beige color, whipped cream piled high, crushed hazelnuts scattered, caramel drizzle, dark wood background, indulgent cafe style, 4K food photography
+```
+
+### ميلك شيك بلو بيري (Blueberry milkshake)
+```
+A blueberry milkshake in a tall glass on a wooden table, deep purple-blue color, whipped cream, fresh blueberries on top, blueberry sauce drizzle, rustic wood surface, bright natural light, professional milkshake photo
+```
+
+### زبادي عسل (Honey yogurt)
+```
+A honey yogurt in a glass cup on a wooden table, creamy white yogurt with golden honey drizzle, walnut pieces scattered, wooden spoon beside it, warm rustic lighting, natural daylight, professional food photography
+```
+
+### اضافه لبن (Add milk)
+```
+A glass of fresh cold milk on a rustic wooden table, condensation on the glass, simple elegant presentation, soft natural lighting, wooden table texture, clean minimalist cafe style, 4K food photography
+```
